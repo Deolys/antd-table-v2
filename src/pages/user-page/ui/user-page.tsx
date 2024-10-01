@@ -2,8 +2,8 @@ import { Button, Layout } from 'antd';
 import React, { type JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UserForm } from '@/widgets/user-form';
 import { pageRoutes } from '@/shared/consts/page-routes';
+import { UserForm } from '@/widgets/user-form';
 
 const { Header, Content } = Layout;
 

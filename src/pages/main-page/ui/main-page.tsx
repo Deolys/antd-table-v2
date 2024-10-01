@@ -26,6 +26,7 @@ export function MainPage(): JSX.Element {
         </Content>
         <Sider
           width={320}
+          defaultCollapsed
           collapsible
           collapsedWidth={0}
           zeroWidthTriggerStyle={{

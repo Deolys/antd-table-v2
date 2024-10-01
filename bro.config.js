@@ -9,9 +9,9 @@ module.exports = {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, 'src')
-      }
-    }
+        "@": path.resolve(__dirname, "src"),
+      },
+    },
   },
   /* use https://admin.bro-js.ru/ to create config, navigations and features */
   navigations: {

@@ -1,22 +1,15 @@
-import React, { type JSX, useEffect } from 'react';
+import React, { type JSX } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { usersApi } from '@/shared/api/users-api';
-import { useAppDispatch } from '@/shared/lib/hooks/use-app-dispatch';
-
+import { StoreProvider } from './providers/store-provider';
 import { PageRoutes } from './routes';
 
-const App = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(usersApi.initUsers());
-  }, [dispatch]);
-
-  return (
+const App = (): JSX.Element => (
+  <StoreProvider>
     <BrowserRouter>
       <PageRoutes />
     </BrowserRouter>
-  );
-};
+  </StoreProvider>
+);
 
 export default App;

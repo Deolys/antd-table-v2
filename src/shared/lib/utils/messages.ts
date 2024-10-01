@@ -1,7 +1,7 @@
 import { message } from 'antd';
 
-export function showErrorMessage(err: Error): void {
-  message.error(err.message);
+export function showErrorMessage(text: string): void {
+  message.error(text);
 }
 
 export function showSuccessMessage(text: string): void {
