@@ -27,6 +27,7 @@ module.exports = tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      ...eslintPluginPrettier.configs.recommended.rules,
       "@typescript-eslint/no-explicit-any": "error",
       "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
       "react/jsx-uses-react": "off",
