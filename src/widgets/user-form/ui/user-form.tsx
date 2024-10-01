@@ -1,48 +1,56 @@
-import { Flex, Form, FormProps, Input, Select, Typography } from 'antd';
+import { Flex, Form, type FormProps, Input, Select, Typography } from 'antd';
 import React, { type JSX, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { FormSubmitButton } from '@/features/form-submit-button';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks/use-user-type-select';
-import { usersApi } from '@/shared/api/users-api';
-import { useAppDispatch } from '@/shared/lib/hooks/use-app-dispatch';
-import { useAppSelector } from '@/shared/lib/hooks/use-app-selector';
+import {
+  useCreateUserMutation,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from '@/shared/api/users-api';
 import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils/messages';
-import { CreateUser } from '@/shared/types/user';
-
-import { clearUserData, userData, userLoading } from '../model/user-slice';
+import type { CreateUser } from '@/shared/types/user';
 
 export function UserForm(): JSX.Element {
   const { id } = useParams();
-  const userId = Number(id);
-  const dispatch = useAppDispatch();
-  const user = useAppSelector(userData);
-  const loading = useAppSelector(userLoading);
-  const { options } = useUserTypeSelect();
+  const { data: user, error, isLoading } = useGetUserByIdQuery(id);
 
-  const [form] = Form.useForm();
   useEffect(() => {
-    dispatch(usersApi.fetchUserById(userId));
-    return () => {
-      dispatch(clearUserData());
-    };
-  }, [dispatch, userId]);
+    if (error) {
+      showErrorMessage('Пользователь не найден');
+    }
+  }, [error]);
 
-  const onFinish: FormProps<CreateUser>['onFinish'] = (values) => {
+  const [updateUser] = useUpdateUserMutation();
+  const [createUser] = useCreateUserMutation();
+
+  const { options } = useUserTypeSelect();
+  const [form] = Form.useForm();
+
+  const onFinish: FormProps<CreateUser>['onFinish'] = async (values) => {
     if (user) {
-      dispatch(usersApi.updateUser({ ...values, id: userId }))
-        .then(() => showSuccessMessage('Данные пользователя успешно обновлены'))
-        .catch((err) => showErrorMessage(err));
+      const res = await updateUser({ ...values, _id: id });
+      if (res.data) {
+        showSuccessMessage('Данные пользователя успешно обновлены');
+      }
+      if (res.error) {
+        showErrorMessage('Произошла ошибка при обновлении данных пользователя');
+      }
     } else {
-      dispatch(usersApi.createUser(values))
-        .then(() => showSuccessMessage('Пользователь успешно создан'))
-        .catch((err) => showErrorMessage(err));
+      const res = await createUser(values);
+      if (res.data) {
+        showSuccessMessage('Пользователь успешно создан');
+      }
+      if (res.error) {
+        showErrorMessage('Произошла ошибка при создании пользователя');
+      }
     }
   };
 
   return (
     <>
-      {!loading && (
+      {!isLoading && (
         <Form
           form={form}
           style={{

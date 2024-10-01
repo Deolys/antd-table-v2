@@ -1,4 +1,4 @@
-import { Dayjs } from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
 export type UserType = {
   id: number;
@@ -6,7 +6,8 @@ export type UserType = {
   allow_edit: boolean;
 };
 
-export type User = Omit<UserType, 'allow_edit'> & {
+export type User = Omit<UserType, 'allow_edit' | 'id'> & {
+  _id: string;
   login: string;
   password: string;
   type_id: number;
@@ -16,7 +17,7 @@ export type User = Omit<UserType, 'allow_edit'> & {
 
 export type UpdateUser = Omit<User, 'last_visit_date' | 'type'>;
 
-export type CreateUser = Omit<UpdateUser, 'id'>;
+export type CreateUser = Omit<UpdateUser, '_id'>;
 
 export interface UsersFilters {
   name?: string;

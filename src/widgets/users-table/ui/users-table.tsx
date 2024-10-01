@@ -1,39 +1,58 @@
 import { Button, Table } from 'antd';
+import dayjs from 'dayjs';
 import React, { type JSX, type Key, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import editIcon from '@/assets/icons/edit-icon.svg';
 import {
   selectedUserIds,
   setSelectedUsers,
 } from '@/features/delete-users-button/model/selected-users-slice';
-import { userFilter } from '@/features/user-filter/model/user-filter-slce';
-import { usersApi } from '@/shared/api/users-api';
+import { useGetFilteredUsersQuery } from '@/shared/api/users-api';
+import { FILTER_START_DATE } from '@/shared/consts/initial-filters';
 import { pageRoutes } from '@/shared/consts/page-routes';
 import { useAppDispatch } from '@/shared/lib/hooks/use-app-dispatch';
 import { useAppSelector } from '@/shared/lib/hooks/use-app-selector';
-import { User } from '@/shared/types/user';
+import { showErrorMessage } from '@/shared/lib/utils/messages';
+import type { User } from '@/shared/types/user';
 
 import { userTableHeaders } from '../consts/user-table-headers';
-import { usersInitiating, usersList, usersLoading } from '../model/users-slice';
 
 export function UsersTable(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const selectedIds = useAppSelector(selectedUserIds);
-  const users = useAppSelector(usersList);
-  const loading = useAppSelector(usersLoading);
-  const initiating = useAppSelector(usersInitiating);
-  const filters = useAppSelector(userFilter);
+  const [params] = useSearchParams();
+  const {
+    data: users,
+    error,
+    isFetching,
+  } = useGetFilteredUsersQuery({
+    name: params.get('name'),
+    type_id: +params.get('type_id'),
+    dateRange: params.get('dateRange')?.split(',') || [
+      dayjs(FILTER_START_DATE).format('YYYY-MM-DD'),
+      dayjs().format('YYYY-MM-DD'),
+    ],
+  });
 
   useEffect(() => {
-    if (!initiating) {
-      dispatch(usersApi.fetchFilteredUsers(filters));
+    if (error) {
+      console.log('er');
+      showErrorMessage('Возникла ошибка при получении списка пользователей');
     }
-  }, [dispatch, filters, initiating]);
+  }, [error]);
+
+  const selectedIds = useAppSelector(selectedUserIds);
 
   const columns = [
     ...userTableHeaders,
+    {
+      title: 'Время последнего посещения',
+      dataIndex: 'last_visit_date',
+      key: 'last_visit_date',
+      width: '18%',
+      render: (date: string) => dayjs(date).format('YYYY-MM-DD'),
+    },
     {
       title: '',
       dataIndex: '',
@@ -43,7 +62,7 @@ export function UsersTable(): JSX.Element {
           icon={
             <img width={24} height={24} src={editIcon} title="Редактировать" alt="Редактирование" />
           }
-          onClick={() => navigate(`${pageRoutes.USER_FORM}/${record.id}`)}
+          onClick={() => navigate(`${pageRoutes.USER_FORM}/${record._id}`)}
         />
       ),
       width: '4%',
@@ -52,7 +71,7 @@ export function UsersTable(): JSX.Element {
 
   const rowSelection = {
     onChange: (_: Key[], selectedRows: User[]) => {
-      dispatch(setSelectedUsers(selectedRows.map((r) => r.id)));
+      dispatch(setSelectedUsers(selectedRows.map((r) => r._id)));
     },
     selectedRowKeys: selectedIds,
   };
@@ -60,10 +79,10 @@ export function UsersTable(): JSX.Element {
   return (
     <Table
       bordered
-      loading={loading || initiating}
+      loading={isFetching}
       dataSource={users}
       columns={columns}
-      rowKey={(record) => record.id}
+      rowKey={(record) => record._id}
       rowSelection={{
         type: 'checkbox',
         ...rowSelection,

@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 
-import { usersApi } from '@/shared/api/users-api';
-import { useAppDispatch } from '@/shared/lib/hooks/use-app-dispatch';
-import { useAppSelector } from '@/shared/lib/hooks/use-app-selector';
-
-import { userTypes } from '../../model/user-types-slice';
+import { useGetUserTypesQuery } from '@/shared/api/users-api';
+import { showErrorMessage } from '@/shared/lib/utils/messages';
 
 interface HookReturn {
   options: {
@@ -15,18 +12,21 @@ interface HookReturn {
 }
 
 export function useUserTypeSelect(): HookReturn {
-  const dispatch = useAppDispatch();
-  const userTypeList = useAppSelector(userTypes);
-
-  const options = userTypeList.map((userType) => ({
-    label: userType.name,
-    value: userType.id,
-    display: userType.name,
-  }));
+  const { data: userTypes, error } = useGetUserTypesQuery();
 
   useEffect(() => {
-    dispatch(usersApi.fetchUserTypes());
-  }, [dispatch]);
+    if (error) {
+      showErrorMessage('Не удалось получить типы пользователей');
+    }
+  }, [error]);
+
+  const options = userTypes
+    ? userTypes.map((userType) => ({
+        label: userType.name,
+        value: userType.id,
+        display: userType.name,
+      }))
+    : [];
 
   return {
     options,
