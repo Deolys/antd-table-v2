@@ -1,30 +1,42 @@
 import { Button, DatePicker, Flex, Form, Input, Select } from 'antd';
 import dayjs from 'dayjs';
 import React, { type JSX } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import { FILTER_START_DATE } from '@/features/user-filter/consts/initial-filters';
-import { setUserFilter, userFilter } from '@/features/user-filter/model/user-filter-slce';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks/use-user-type-select';
-import { userTypesLoading } from '@/features/user-type-select/model/user-types-slice';
-import { useAppDispatch } from '@/shared/lib/hooks/use-app-dispatch';
-import { useAppSelector } from '@/shared/lib/hooks/use-app-selector';
-import { UsersFilters } from '@/shared/types/user';
+import { FILTER_START_DATE } from '@/shared/consts/initial-filters';
+import type { UsersFilters } from '@/shared/types/user';
 
 const { RangePicker } = DatePicker;
 
 export function FiltersForm(): JSX.Element {
   const [form] = Form.useForm();
-  const dispatch = useAppDispatch();
-  const loading = useAppSelector(userTypesLoading);
-  const filters = useAppSelector(userFilter);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filters = {
+    name: searchParams.get('name') || '',
+    type_id: +searchParams.get('type_id') || null,
+    dateRange: searchParams.get('dateRange')?.split(',') || [dayjs(FILTER_START_DATE), dayjs()],
+  };
+
   const { options } = useUserTypeSelect();
 
   const onFinish = (values: UsersFilters): void => {
     const convertedValues = {
       ...values,
-      dateRange: [values.dateRange[0].toString(), values.dateRange[1].toString()],
+      dateRange: [
+        dayjs(values.dateRange[0]).format('YYYY-MM-DD'),
+        dayjs(values.dateRange[1]).format('YYYY-MM-DD'),
+      ],
     };
-    dispatch(setUserFilter(convertedValues));
+
+    const newSearchParams = new URLSearchParams();
+    Object.entries(convertedValues).forEach(([key, value]) => {
+      if (value) {
+        newSearchParams.set(key, value.toString());
+      }
+    });
+
+    setSearchParams(newSearchParams);
   };
 
   return (
@@ -71,7 +83,7 @@ export function FiltersForm(): JSX.Element {
           }}
         />
       </Form.Item>
-      <Button type="primary" block loading={loading} htmlType="submit">
+      <Button type="primary" block htmlType="submit">
         Поиск
       </Button>
       <Button
