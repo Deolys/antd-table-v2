@@ -9,7 +9,7 @@ import type { UsersFilters } from '@/shared/types';
 
 const { RangePicker } = DatePicker;
 
-export function FiltersForm(): JSX.Element {
+function FiltersForm(): JSX.Element {
   const [form] = Form.useForm();
   const [searchParams, setSearchParams] = useSearchParams();
   const filters = {
@@ -101,3 +101,5 @@ export function FiltersForm(): JSX.Element {
     </Form>
   );
 }
+
+export default FiltersForm;

@@ -1,13 +1,13 @@
-import { Button, Flex, Layout } from 'antd';
-import React, { type JSX } from 'react';
+import { Button, Flex, Layout, Spin } from 'antd';
+import React, { type JSX, Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DeleteUsersButton } from '@/features/delete-users-button';
 import { pageRoutes } from '@/shared/consts';
-import { FiltersForm } from '@/widgets/filters-form';
 import { UsersTable } from '@/widgets/users-table';
 
 const { Header, Sider, Content } = Layout;
+const FiltersForm = lazy(() => import('@/widgets/filters-form'));
 
 export function MainPage(): JSX.Element {
   const navigate = useNavigate();
@@ -45,7 +45,9 @@ export function MainPage(): JSX.Element {
             boxShadow: '-10px 0 10px -4px rgba(59, 84, 108, 0.1)',
           }}
         >
-          <FiltersForm />
+          <Suspense fallback={<Spin />}>
+            <FiltersForm />
+          </Suspense>
         </Sider>
       </Layout>
     </Layout>
