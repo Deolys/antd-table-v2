@@ -3,14 +3,14 @@ import React, { type JSX, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { FormSubmitButton } from '@/features/form-submit-button';
-import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks/use-user-type-select';
+import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
 import {
   useCreateUserMutation,
   useGetUserByIdQuery,
   useUpdateUserMutation,
 } from '@/shared/api/users-api';
-import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils/messages';
-import type { CreateUser } from '@/shared/types/user';
+import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils';
+import type { CreateUser } from '@/shared/types';
 
 export function UserForm(): JSX.Element {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { CreateUser, UpdateUser, User, UserType, UsersFilters } from '@/shared/types/user';
+import type { CreateUser, UpdateUser, User, UserType, UsersFilters } from '@/shared/types';
 
 interface Result {
   data: [] | null;

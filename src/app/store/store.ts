@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { selectedUsersReducer } from '@/features/delete-users-button/model/selected-users-slice';
+import { selectedUsersReducer } from '@/features/delete-users-button';
 import { usersApi } from '@/shared/api/users-api';
 
 const rootReducer = combineReducers({

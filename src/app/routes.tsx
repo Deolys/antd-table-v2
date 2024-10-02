@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { MainPage } from '@/pages/main-page';
 import { UserPage } from '@/pages/user-page';
-import { pageRoutes } from '@/shared/consts/page-routes';
+import { pageRoutes } from '@/shared/consts';
 
 export const PageRoutes = (): JSX.Element => {
   return (

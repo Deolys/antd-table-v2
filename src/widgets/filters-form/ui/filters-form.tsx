@@ -3,9 +3,9 @@ import dayjs from 'dayjs';
 import React, { type JSX } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks/use-user-type-select';
-import { FILTER_START_DATE } from '@/shared/consts/initial-filters';
-import type { UsersFilters } from '@/shared/types/user';
+import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
+import { DATE_FORMAT, FILTER_START_DATE } from '@/shared/consts';
+import type { UsersFilters } from '@/shared/types';
 
 const { RangePicker } = DatePicker;
 
@@ -24,8 +24,8 @@ export function FiltersForm(): JSX.Element {
     const convertedValues = {
       ...values,
       dateRange: [
-        dayjs(values.dateRange[0]).format('YYYY-MM-DD'),
-        dayjs(values.dateRange[1]).format('YYYY-MM-DD'),
+        dayjs(values.dateRange[0]).format(DATE_FORMAT),
+        dayjs(values.dateRange[1]).format(DATE_FORMAT),
       ],
     };
 

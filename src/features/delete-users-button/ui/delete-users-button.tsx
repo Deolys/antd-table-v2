@@ -2,8 +2,8 @@ import { Button, Popconfirm } from 'antd';
 import React, { type JSX } from 'react';
 
 import { useDeleteUsersMutation } from '@/shared/api/users-api';
-import { useAppSelector } from '@/shared/lib/hooks/use-app-selector';
-import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils/messages';
+import { useAppSelector } from '@/shared/lib/hooks';
+import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils';
 
 import { selectedUserIds } from '../model/selected-users-slice';
 

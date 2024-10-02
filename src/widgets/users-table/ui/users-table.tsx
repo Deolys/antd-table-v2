@@ -4,19 +4,16 @@ import React, { type JSX, type Key, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import editIcon from '@/assets/icons/edit-icon.svg';
-import {
-  selectedUserIds,
-  setSelectedUsers,
-} from '@/features/delete-users-button/model/selected-users-slice';
+import { selectedUserIds, setSelectedUsers } from '@/features/delete-users-button';
 import { useGetFilteredUsersQuery } from '@/shared/api/users-api';
-import { FILTER_START_DATE } from '@/shared/consts/initial-filters';
-import { pageRoutes } from '@/shared/consts/page-routes';
-import { useAppDispatch } from '@/shared/lib/hooks/use-app-dispatch';
-import { useAppSelector } from '@/shared/lib/hooks/use-app-selector';
-import { showErrorMessage } from '@/shared/lib/utils/messages';
-import type { User } from '@/shared/types/user';
+import { DATE_FORMAT, FILTER_START_DATE } from '@/shared/consts';
+import { pageRoutes } from '@/shared/consts';
+import { useAppDispatch } from '@/shared/lib/hooks';
+import { useAppSelector } from '@/shared/lib/hooks';
+import { showErrorMessage } from '@/shared/lib/utils';
+import type { User } from '@/shared/types';
 
-import { userTableHeaders } from '../consts/user-table-headers';
+import { userTableHeaders } from '../consts';
 
 export function UsersTable(): JSX.Element {
   const navigate = useNavigate();
@@ -30,8 +27,8 @@ export function UsersTable(): JSX.Element {
     name: params.get('name'),
     type_id: +params.get('type_id'),
     dateRange: params.get('dateRange')?.split(',') || [
-      dayjs(FILTER_START_DATE).format('YYYY-MM-DD'),
-      dayjs().format('YYYY-MM-DD'),
+      dayjs(FILTER_START_DATE).format(DATE_FORMAT),
+      dayjs().format(DATE_FORMAT),
     ],
   });
 
@@ -44,6 +41,7 @@ export function UsersTable(): JSX.Element {
 
   const selectedIds = useAppSelector(selectedUserIds);
 
+  console.log('userTableHeaders: ', userTableHeaders);
   const columns = [
     ...userTableHeaders,
     {
@@ -51,7 +49,7 @@ export function UsersTable(): JSX.Element {
       dataIndex: 'last_visit_date',
       key: 'last_visit_date',
       width: '18%',
-      render: (date: string) => dayjs(date).format('YYYY-MM-DD'),
+      render: (date: string) => dayjs(date).format(DATE_FORMAT),
     },
     {
       title: '',

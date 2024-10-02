@@ -3,7 +3,7 @@ import React, { type JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { DeleteUsersButton } from '@/features/delete-users-button';
-import { pageRoutes } from '@/shared/consts/page-routes';
+import { pageRoutes } from '@/shared/consts';
 import { FiltersForm } from '@/widgets/filters-form';
 import { UsersTable } from '@/widgets/users-table';
 

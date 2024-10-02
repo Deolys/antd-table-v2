@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useGetUserTypesQuery } from '@/shared/api/users-api';
-import { showErrorMessage } from '@/shared/lib/utils/messages';
+import { showErrorMessage } from '@/shared/lib/utils';
 
 interface HookReturn {
   options: {
