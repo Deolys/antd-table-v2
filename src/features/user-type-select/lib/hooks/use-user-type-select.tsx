@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useGetUserTypesQuery } from '@/shared/api/users-api';
+import { useGetUserTypesQuery } from '@/entities/user';
 import { showErrorMessage } from '@/shared/lib/utils';
 
 interface HookReturn {

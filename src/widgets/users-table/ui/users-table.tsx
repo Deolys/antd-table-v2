@@ -4,14 +4,14 @@ import React, { type JSX, type Key, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import editIcon from '@/assets/icons/edit-icon.svg';
+import type { User } from '@/entities/user';
+import { useGetFilteredUsersQuery } from '@/entities/user';
 import { selectedUserIds, setSelectedUsers } from '@/features/delete-users-button';
-import { useGetFilteredUsersQuery } from '@/shared/api/users-api';
 import { DATE_FORMAT, FILTER_START_DATE } from '@/shared/consts';
 import { pageRoutes } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/hooks';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { showErrorMessage } from '@/shared/lib/utils';
-import type { User } from '@/shared/types';
 
 import { userTableHeaders } from '../consts';
 

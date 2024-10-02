@@ -1,16 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseApi } from '@/shared/api';
 
-import type { CreateUser, UpdateUser, User, UserType, UsersFilters } from '@/shared/types';
+import type { CreateUser, UpdateUser, User, UserType, UsersFilters } from '../model/types';
 
 interface Result {
   data: [] | null;
   error: { message: string; status: number } | null;
 }
 
-export const usersApi = createApi({
-  reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
-  tagTypes: ['user', 'users', 'userTypes'],
+export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getFilteredUsers: builder.query<User[], UsersFilters>({
       query: ({ name, type_id, dateRange }) => {
@@ -48,7 +45,10 @@ export const usersApi = createApi({
         method: 'PUT',
         body: user,
       }),
-      invalidatesTags: (result, error, user) => [{ type: 'user' as const, id: user._id }],
+      invalidatesTags: (result, error, user) => [
+        { type: 'users' as const, id: user._id },
+        { type: 'user' as const, id: user._id },
+      ],
     }),
 
     deleteUsers: builder.mutation<Result, number[]>({
@@ -71,6 +71,7 @@ export const usersApi = createApi({
           : ['userTypes'],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {

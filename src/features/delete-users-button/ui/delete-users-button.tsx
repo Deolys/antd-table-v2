@@ -1,7 +1,7 @@
 import { Button, Popconfirm } from 'antd';
 import React, { type JSX } from 'react';
 
-import { useDeleteUsersMutation } from '@/shared/api/users-api';
+import { useDeleteUsersMutation } from '@/entities/user';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils';
 

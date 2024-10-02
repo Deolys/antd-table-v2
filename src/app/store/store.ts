@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { selectedUsersReducer } from '@/features/delete-users-button';
-import { usersApi } from '@/shared/api/users-api';
+import { baseApi } from '@/shared/api';
 
 const rootReducer = combineReducers({
-  [usersApi.reducerPath]: usersApi.reducer,
+  [baseApi.reducerPath]: baseApi.reducer,
   selectedUsers: selectedUsersReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(usersApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

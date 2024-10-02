@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { useSearchParams } from 'react-router-dom';
 
+import type { UsersFilters } from '@/entities/user';
 import { DATE_FORMAT, DEFAULT_FILTER_OBJECT } from '@/shared/consts';
-import type { UsersFilters } from '@/shared/types';
 
 interface FilterFormHook {
   filters: UsersFilters;

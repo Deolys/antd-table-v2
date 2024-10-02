@@ -2,13 +2,9 @@ import type { FormProps } from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  useCreateUserMutation,
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-} from '@/shared/api/users-api';
+import type { CreateUser } from '@/entities/user';
+import { useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation } from '@/entities/user';
 import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils';
-import type { CreateUser } from '@/shared/types';
 
 interface UserFormHook {
   user: CreateUser | null;
