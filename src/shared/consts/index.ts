@@ -1,2 +1,2 @@
-export { FILTER_START_DATE, DATE_FORMAT } from './initial-filters';
+export { FILTER_START_DATE, DATE_FORMAT, DEFAULT_FILTER_OBJECT } from './initial-filters';
 export { pageRoutes } from './page-routes';

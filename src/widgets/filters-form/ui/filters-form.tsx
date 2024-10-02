@@ -1,43 +1,18 @@
 import { Button, DatePicker, Flex, Form, Input, Select } from 'antd';
 import dayjs from 'dayjs';
 import React, { type JSX } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
-import { DATE_FORMAT, FILTER_START_DATE } from '@/shared/consts';
-import type { UsersFilters } from '@/shared/types';
+import { DEFAULT_FILTER_OBJECT } from '@/shared/consts';
+
+import { useFilterForm } from '../lib/hooks';
 
 const { RangePicker } = DatePicker;
 
 function FiltersForm(): JSX.Element {
   const [form] = Form.useForm();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const filters = {
-    name: searchParams.get('name') || '',
-    type_id: +searchParams.get('type_id') || null,
-    dateRange: searchParams.get('dateRange')?.split(',') || [dayjs(FILTER_START_DATE), dayjs()],
-  };
-
   const { options } = useUserTypeSelect();
-
-  const onFinish = (values: UsersFilters): void => {
-    const convertedValues = {
-      ...values,
-      dateRange: [
-        dayjs(values.dateRange[0]).format(DATE_FORMAT),
-        dayjs(values.dateRange[1]).format(DATE_FORMAT),
-      ],
-    };
-
-    const newSearchParams = new URLSearchParams();
-    Object.entries(convertedValues).forEach(([key, value]) => {
-      if (value) {
-        newSearchParams.set(key, value.toString());
-      }
-    });
-
-    setSearchParams(newSearchParams);
-  };
+  const { filters, onFinish } = useFilterForm();
 
   return (
     <Form
@@ -89,11 +64,7 @@ function FiltersForm(): JSX.Element {
       <Button
         type="link"
         onClick={() => {
-          form.setFieldsValue({
-            name: '',
-            type_id: null,
-            dateRange: [dayjs(FILTER_START_DATE), dayjs()],
-          });
+          form.setFieldsValue(DEFAULT_FILTER_OBJECT);
         }}
       >
         Сбросить фильтры

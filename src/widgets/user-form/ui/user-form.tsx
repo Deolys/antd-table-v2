@@ -1,54 +1,16 @@
-import { Flex, Form, type FormProps, Input, Select, Typography } from 'antd';
-import React, { type JSX, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Flex, Form, Input, Select, Typography } from 'antd';
+import React, { type JSX } from 'react';
 
 import { FormSubmitButton } from '@/features/form-submit-button';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
-import {
-  useCreateUserMutation,
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-} from '@/shared/api/users-api';
-import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils';
-import type { CreateUser } from '@/shared/types';
 
+import { useUserForm } from '../lib/hooks';
 import { UserFormSkeleton } from './user-form.skeleton';
 
 export function UserForm(): JSX.Element {
-  const { id } = useParams();
-  const { data: user, error, isLoading } = useGetUserByIdQuery(id);
-
-  useEffect(() => {
-    if (error) {
-      showErrorMessage('Пользователь не найден');
-    }
-  }, [error]);
-
-  const [updateUser] = useUpdateUserMutation();
-  const [createUser] = useCreateUserMutation();
-
+  const { user, isLoading, onFinish } = useUserForm();
   const { options } = useUserTypeSelect();
   const [form] = Form.useForm();
-
-  const onFinish: FormProps<CreateUser>['onFinish'] = async (values) => {
-    if (user) {
-      const res = await updateUser({ ...values, _id: id });
-      if (res.data) {
-        showSuccessMessage('Данные пользователя успешно обновлены');
-      }
-      if (res.error) {
-        showErrorMessage('Произошла ошибка при обновлении данных пользователя');
-      }
-    } else {
-      const res = await createUser(values);
-      if (res.data) {
-        showSuccessMessage('Пользователь успешно создан');
-      }
-      if (res.error) {
-        showErrorMessage('Произошла ошибка при создании пользователя');
-      }
-    }
-  };
 
   if (isLoading) {
     return <UserFormSkeleton />;
