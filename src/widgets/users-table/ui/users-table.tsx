@@ -34,14 +34,12 @@ export function UsersTable(): JSX.Element {
 
   useEffect(() => {
     if (error) {
-      console.log('er');
       showErrorMessage('Возникла ошибка при получении списка пользователей');
     }
   }, [error]);
 
   const selectedIds = useAppSelector(selectedUserIds);
 
-  console.log('userTableHeaders: ', userTableHeaders);
   const columns = [
     ...userTableHeaders,
     {
