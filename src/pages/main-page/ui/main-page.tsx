@@ -1,8 +1,10 @@
 import { Button, Flex, Layout, Spin } from 'antd';
 import React, { type JSX, Suspense, lazy } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { DeleteUsersButton } from '@/features/delete-users-button';
+import { LanguageSelect } from '@/features/language-select';
 import { pageRoutes } from '@/shared/consts';
 import { UsersTable } from '@/widgets/users-table';
 
@@ -10,14 +12,16 @@ const { Header, Sider, Content } = Layout;
 const FiltersForm = lazy(() => import('@/widgets/filters-form'));
 
 export function MainPage(): JSX.Element {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Layout>
       <Header style={{ backgroundColor: '#52618d', position: 'sticky', top: 0, zIndex: 1 }}>
         <Flex justify="end" gap={14} align="center" style={{ height: '100%' }}>
-          <Button onClick={() => navigate(pageRoutes.NEW_USER_FORM)}>Добавить пользователя</Button>
+          <Button onClick={() => navigate(pageRoutes.NEW_USER_FORM)}>{t('user.add')}</Button>
           <DeleteUsersButton />
+          <LanguageSelect />
         </Flex>
       </Header>
       <Layout>

@@ -1,22 +1,21 @@
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import dayjs from 'dayjs';
 import React, { type JSX, type Key, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 
-import editIcon from '@/assets/icons/edit-icon.svg';
 import type { User } from '@/entities/user';
 import { useGetFilteredUsersQuery } from '@/entities/user';
 import { selectedUserIds, setSelectedUsers } from '@/features/delete-users-button';
 import { DATE_FORMAT, FILTER_START_DATE } from '@/shared/consts';
-import { pageRoutes } from '@/shared/consts';
 import { useAppDispatch } from '@/shared/lib/hooks';
 import { useAppSelector } from '@/shared/lib/hooks';
 import { showErrorMessage } from '@/shared/lib/utils';
 
-import { userTableHeaders } from '../consts';
+import { useTableColumns } from '../lib/hooks';
 
 export function UsersTable(): JSX.Element {
-  const navigate = useNavigate();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [params] = useSearchParams();
   const {
@@ -34,36 +33,12 @@ export function UsersTable(): JSX.Element {
 
   useEffect(() => {
     if (error) {
-      showErrorMessage('Возникла ошибка при получении списка пользователей');
+      showErrorMessage(t('messages.error.userList'));
     }
-  }, [error]);
+  }, [error, t]);
 
+  const columns = useTableColumns();
   const selectedIds = useAppSelector(selectedUserIds);
-
-  const columns = [
-    ...userTableHeaders,
-    {
-      title: 'Время последнего посещения',
-      dataIndex: 'last_visit_date',
-      key: 'last_visit_date',
-      width: '18%',
-      render: (date: string) => dayjs(date).format(DATE_FORMAT),
-    },
-    {
-      title: '',
-      dataIndex: '',
-      key: 'action',
-      render: (record: User) => (
-        <Button
-          icon={
-            <img width={24} height={24} src={editIcon} title="Редактировать" alt="Редактирование" />
-          }
-          onClick={() => navigate(`${pageRoutes.USER_FORM}/${record._id}`)}
-        />
-      ),
-      width: '4%',
-    },
-  ];
 
   const rowSelection = {
     onChange: (_: Key[], selectedRows: User[]) => {

@@ -57,9 +57,9 @@ export const usersApi = baseApi.injectEndpoints({
         method: 'DELETE',
         body: ids,
       }),
-      invalidatesTags: (result) =>
-        result && result.data
-          ? [...result.data.map((id) => ({ type: 'users' as const, id: id })), 'users']
+      invalidatesTags: (result, error, ids) =>
+        result && result.data && ids.length > 0
+          ? [...ids.map((id) => ({ type: 'users' as const, id: id })), 'users']
           : ['users'],
     }),
 

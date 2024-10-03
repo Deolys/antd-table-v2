@@ -1,6 +1,7 @@
 import { Button, DatePicker, Flex, Form, Input, Select } from 'antd';
 import dayjs from 'dayjs';
 import React, { type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
 import { DEFAULT_FILTER_OBJECT } from '@/shared/consts';
@@ -10,6 +11,7 @@ import { useFilterForm } from '../lib/hooks';
 const { RangePicker } = DatePicker;
 
 function FiltersForm(): JSX.Element {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const { options } = useUserTypeSelect();
   const { filters, onFinish } = useFilterForm();
@@ -25,14 +27,14 @@ function FiltersForm(): JSX.Element {
       }}
       layout="vertical"
     >
-      <Form.Item label="Имя пользователя:" name="name">
-        <Input allowClear placeholder="Введите имя пользователя" />
+      <Form.Item label={t('form.label.userName')} name="name">
+        <Input allowClear placeholder={t('form.placeholder.userName')} />
       </Form.Item>
-      <Form.Item label="Тип пользователя:" name="type_id">
+      <Form.Item label={t('form.label.type')} name="type_id">
         <Select
           allowClear
           showSearch
-          placeholder="Выберите тип пользователя"
+          placeholder={t('form.placeholder.type')}
           optionFilterProp="children"
           filterOption={(input, option) =>
             (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -43,8 +45,8 @@ function FiltersForm(): JSX.Element {
       <Form.Item
         label={
           <Flex gap={96}>
-            <span>Дата с:</span>
-            <span>Дата по:</span>
+            <span>{t('form.label.dateFrom')}:</span>
+            <span>{t('form.label.dateTo')}:</span>
           </Flex>
         }
         name={'dateRange'}
@@ -59,7 +61,7 @@ function FiltersForm(): JSX.Element {
         />
       </Form.Item>
       <Button type="primary" block htmlType="submit">
-        Поиск
+        {t('form.button.search')}
       </Button>
       <Button
         type="link"
@@ -67,7 +69,7 @@ function FiltersForm(): JSX.Element {
           form.setFieldsValue(DEFAULT_FILTER_OBJECT);
         }}
       >
-        Сбросить фильтры
+        {t('form.button.resetFilters')}
       </Button>
     </Form>
   );

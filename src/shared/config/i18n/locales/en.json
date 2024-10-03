@@ -1,0 +1,78 @@
+{
+  "common": {
+    "ru": "RU",
+    "en": "EN",
+    "yes": "Yes",
+    "no": "No",
+    "deletion": "Deletion",
+    "toMain": "To main",
+    "edit": "Edit"
+  },
+  "user": {
+    "login": "Login",
+    "password": "Password",
+    "name": "Name",
+    "lastVisitDate": "Last visit date",
+    "type": {
+      "1": "User",
+      "2": "Administrator",
+      "3": "Moderator",
+      "4": "Tester",
+      "5": "Guest"
+    },
+    "add": "Add a user",
+    "delete": "Delete selected ones",
+    "typeName": "Type"
+  },
+  "form": {
+    "createUserTitle": "Create a user",
+    "editUserTitle": "Edit user",
+    "label": {
+      "userName": "User's name",
+      "userLogin": "User's login",
+      "userPass": "User's password",
+      "type": "User type",
+      "dateFrom": "Date from",
+      "dateTo": "Date to"
+    },
+    "placeholder": {
+      "userName": "Enter the user's name",
+      "userLogin": "Enter the user's login",
+      "userPass": "Enter the user's password",
+      "type": "Select the user type"
+    },
+    "button": {
+      "search": "Search",
+      "send": "Send",
+      "resetFilters": "Reset filters"
+    },
+    "validation": {
+      "userName": "Fill the user's name field",
+      "userLogin": "Fill the login field",
+      "userPass": "Fill the password field",
+      "type": "Fill the type field"
+    }
+  },
+  "messages": {
+    "error": {
+      "notFoundPage": "Page not found",
+      "notFoundUser": "User not found",
+      "deleteUsers": "An error occurred while deleting",
+      "userTypes": "Failed to get user types",
+      "updateUser": "An error occurred while updating the user",
+      "createUser": "An error occurred while creating the user",
+      "userList": "An error occurred while retrieving the list of users"
+    },
+    "success": {
+      "updateUser": "The user's data has been successfully updated",
+      "createUser": "The user has been successfully created",
+      "deleteUsers": {
+        "one": "{{count}} user has been deleted",
+        "many": "{{count}} users have been deleted"
+      }
+    },
+    "warn": {
+      "deleteUsers": "Are you sure you want to delete the selected users?"
+    }
+  }
+}

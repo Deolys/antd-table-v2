@@ -1,13 +1,16 @@
 import { Button, Popconfirm } from 'antd';
 import React, { type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useDeleteUsersMutation } from '@/entities/user';
-import { useAppSelector } from '@/shared/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { showErrorMessage, showSuccessMessage } from '@/shared/lib/utils';
 
-import { selectedUserIds } from '../model/selected-users-slice';
+import { clearSelectedUsers, selectedUserIds } from '../model/selected-users-slice';
 
 export function DeleteUsersButton(): JSX.Element {
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const selectedUsers = useAppSelector(selectedUserIds);
   const [deleteUsers] = useDeleteUsersMutation();
 
@@ -16,25 +19,28 @@ export function DeleteUsersButton(): JSX.Element {
       const res = await deleteUsers(selectedUsers);
 
       if (!res.error) {
-        showSuccessMessage('Удаление прошло успешно');
+        const count = selectedUsers.length;
+        const tKey = count === 1 ? 'one' : 'many';
+        showSuccessMessage(t(`messages.success.deleteUsers.${tKey}`, { count }));
+        dispatch(clearSelectedUsers());
       }
     } catch {
-      showErrorMessage('Произошла ошибка при удалении');
+      showErrorMessage(t(`messages.error.deleteUsers`));
     }
   };
 
   return (
     <Popconfirm
-      title="Удаление"
-      description="Вы уверены, что хотите удалить выбранных пользователей?"
+      title={t('common.deletion')}
+      description={t('messages.warn.deleteUsers')}
       onConfirm={handleDelete}
-      okText="Да"
-      cancelText="Нет"
+      okText={t('common.yes')}
+      cancelText={t('common.no')}
       okButtonProps={{ style: { width: 70 } }}
       cancelButtonProps={{ style: { width: 70 } }}
     >
       <Button danger disabled={selectedUsers.length === 0}>
-        Удалить выбранных
+        {t('user.delete')}
       </Button>
     </Popconfirm>
   );

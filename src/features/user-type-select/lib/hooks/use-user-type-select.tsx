@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useGetUserTypesQuery } from '@/entities/user';
 import { showErrorMessage } from '@/shared/lib/utils';
@@ -12,19 +13,20 @@ interface HookReturn {
 }
 
 export function useUserTypeSelect(): HookReturn {
+  const { t } = useTranslation();
   const { data: userTypes, error } = useGetUserTypesQuery();
 
   useEffect(() => {
     if (error) {
-      showErrorMessage('Не удалось получить типы пользователей');
+      showErrorMessage(t('messages.error.userTypes'));
     }
-  }, [error]);
+  }, [error, t]);
 
   const options = userTypes
     ? userTypes.map((userType) => ({
-        label: userType.name,
+        label: t(`user.type.${userType.id}`),
         value: userType.id,
-        display: userType.name,
+        display: t(`user.type.${userType.id}`),
       }))
     : [];
 

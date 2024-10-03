@@ -1,15 +1,15 @@
-const User = require("../schemas/user.js");
-const { checkConnection } = require("../utils/db-utils.js");
-const express = require("express");
+const User = require('../schemas/user.js');
+const { checkConnection } = require('../utils/db-utils.js');
+const express = require('express');
 
 const router = express.Router();
 
 module.exports = router;
 
 const app = express();
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const port = process.env.PORT || 3000;
@@ -17,19 +17,19 @@ const port = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGODB_URI);
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
 });
 
 app.use(cors());
 app.use(express.json());
 
-app.post("/users", async (req, res) => {
+app.post('/users', async (req, res) => {
   checkConnection(db);
 
   const { name, login, password, type_id } = req.body;
-  const lastVisitDate = new Date().toISOString().split("T")[0];
+  const lastVisitDate = new Date().toISOString().split('T')[0];
 
   try {
     const newUser = new User({
@@ -47,14 +47,14 @@ app.post("/users", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
+app.get('/users', async (req, res) => {
   checkConnection(db);
 
   const { name, type_id, dateRange } = req.query;
   let query = {};
 
   if (name) {
-    query.name = { $regex: name, $options: "i" };
+    query.name = { $regex: name, $options: 'i' };
   }
 
   if (type_id) {
@@ -70,9 +70,7 @@ app.get("/users", async (req, res) => {
         $lte: new Date(dateTo),
       };
     } catch (error) {
-      return res
-        .status(400)
-        .json({ error: `Invalid date range format: ${error}` });
+      return res.status(400).json({ error: `Invalid date range format: ${error}` });
     }
   }
 
@@ -83,14 +81,14 @@ app.get("/users", async (req, res) => {
       },
       {
         $lookup: {
-          from: "user-types",
-          localField: "type_id",
-          foreignField: "id",
-          as: "type",
+          from: 'user-types',
+          localField: 'type_id',
+          foreignField: 'id',
+          as: 'type',
         },
       },
       {
-        $unwind: "$type",
+        $unwind: '$type',
       },
       {
         $project: {
@@ -100,7 +98,7 @@ app.get("/users", async (req, res) => {
           name: 1,
           email: 1,
           last_visit_date: 1,
-          type: "$type.name",
+          type: '$type.name',
         },
       },
     ]);
@@ -111,11 +109,11 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.get("/users/:id", async (req, res) => {
+app.get('/users/:id', async (req, res) => {
   checkConnection(db);
 
   const id = req.params.id;
-  if (id === "new-id") {
+  if (id === 'new-id') {
     return res.status(200).json();
   }
 
@@ -125,14 +123,14 @@ app.get("/users/:id", async (req, res) => {
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-app.put("/users/:id", async (req, res) => {
+app.put('/users/:id', async (req, res) => {
   const id = req.params.id;
   const { name, login, password, type_id } = req.body;
 
@@ -140,20 +138,20 @@ app.put("/users/:id", async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
       id,
       { name, login, password, type_id },
-      { new: true }
+      { new: true },
     );
 
     if (updatedUser) {
       res.json(updatedUser);
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-app.delete("/users", async (req, res) => {
+app.delete('/users', async (req, res) => {
   checkConnection(db);
 
   const ids = req.body || [];
@@ -168,14 +166,14 @@ app.delete("/users", async (req, res) => {
     }
   }
 
-  res.status(400).json({ error: "No users provided" });
+  res.status(400).json({ error: 'No users provided' });
 });
 
-app.get("/user-types", async (req, res) => {
+app.get('/user-types', async (req, res) => {
   checkConnection(db);
 
   try {
-    const types = db.collection("user-types");
+    const types = db.collection('user-types');
     const userTypes = await types.find().toArray();
 
     res.json(userTypes);

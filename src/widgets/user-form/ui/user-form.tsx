@@ -1,5 +1,6 @@
 import { Flex, Form, Input, Select, Typography } from 'antd';
 import React, { type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { FormSubmitButton } from '@/features/form-submit-button';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
@@ -8,6 +9,7 @@ import { useUserForm } from '../lib/hooks';
 import { UserFormSkeleton } from './user-form.skeleton';
 
 export function UserForm(): JSX.Element {
+  const { t } = useTranslation();
   const { user, isLoading, onFinish } = useUserForm();
   const { options } = useUserTypeSelect();
   const [form] = Form.useForm();
@@ -31,38 +33,38 @@ export function UserForm(): JSX.Element {
       layout="vertical"
     >
       <Typography.Title level={4} style={{ textAlign: 'center', marginBottom: 20 }}>
-        {user ? 'Редактирование пользователя' : 'Создание пользователя'}
+        {user ? t('form.editUserTitle') : t('form.createUserTitle')}
       </Typography.Title>
       <Form.Item
-        label="Имя пользователя:"
+        label={t('form.label.userName')}
         name="name"
-        rules={[{ required: true, message: 'Заполните поле имени' }]}
+        rules={[{ required: true, message: t('form.validation.userName') }]}
       >
-        <Input allowClear placeholder="Введите имя пользователя" />
+        <Input allowClear placeholder={t('form.placeholder.userName')} />
       </Form.Item>
       <Form.Item
-        label="Логин пользователя:"
+        label={t('form.label.userLogin')}
         name="login"
-        rules={[{ required: true, message: 'Заполните поле логина' }]}
+        rules={[{ required: true, message: t('form.validation.userLogin') }]}
       >
-        <Input allowClear placeholder="Введите логин пользователя" />
+        <Input allowClear placeholder={t('form.placeholder.userLogin')} />
       </Form.Item>
       <Form.Item
-        label="Пароль пользователя:"
+        label={t('form.label.userPass')}
         name="password"
-        rules={[{ required: true, message: 'Заполните поле пароля' }]}
+        rules={[{ required: true, message: t('form.validation.userPass') }]}
       >
-        <Input allowClear placeholder="Введите пароль пользователя" />
+        <Input allowClear placeholder={t('form.placeholder.userPass')} />
       </Form.Item>
       <Form.Item
-        label="Тип пользователя:"
+        label={t('form.label.type')}
         name="type_id"
-        rules={[{ required: true, message: 'Заполните поле типа' }]}
+        rules={[{ required: true, message: t('form.validation.type') }]}
       >
         <Select
           allowClear
           showSearch
-          placeholder="Выберите тип пользователя"
+          placeholder={t('form.placeholder.type')}
           optionFilterProp="children"
           filterOption={(input, option) =>
             (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -71,7 +73,7 @@ export function UserForm(): JSX.Element {
         />
       </Form.Item>
       <Flex justify="end">
-        <FormSubmitButton form={form}>Отправить</FormSubmitButton>
+        <FormSubmitButton form={form}>{t('form.button.send')}</FormSubmitButton>
       </Flex>
     </Form>
   );
