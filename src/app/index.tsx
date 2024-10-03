@@ -1,6 +1,8 @@
 import React, { type JSX, StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
+import '@/shared/config/i18n';
+
 import App from './app';
 import './styles/global.css';
 
