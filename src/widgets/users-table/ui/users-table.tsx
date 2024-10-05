@@ -21,7 +21,7 @@ export function UsersTable(): JSX.Element {
         type: 'checkbox',
         ...rowSelection,
       }}
-      scroll={{ x: 'max-content' }}
+      scroll={{ x: 'max-content', y: 'calc(95vh - 180px)' }}
       onChange={handleTableChange}
     />
   );

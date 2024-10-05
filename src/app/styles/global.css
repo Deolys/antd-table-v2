@@ -7,6 +7,11 @@
   justify-content: space-around;
 }
 
+.ant-table-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(139 158 215) #f0f0f0;
+}
+
 #app {
   min-width: 320px;
   min-height: 100vh;

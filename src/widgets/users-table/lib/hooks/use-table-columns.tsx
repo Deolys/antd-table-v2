@@ -20,18 +20,18 @@ export function useTableColumns(numberSkip: number = 0): TableColumnProps<AnyObj
         dataIndex: '_id',
         key: 'identifier',
         fixed: true,
-        width: '2%',
+        width: 50,
         render: (_text, _record, index: number) => <span>{index + numberSkip + 1}</span>,
       },
-      { title: t('user.login'), dataIndex: 'login', key: 'login', fixed: true, width: '20%' },
-      { title: t('user.password'), dataIndex: 'password', key: 'password', width: '20%' },
-      { title: t('user.name'), dataIndex: 'name', key: 'name', width: '18%' },
-      { title: t('user.typeName'), dataIndex: 'type', key: 'type', width: '18%' },
+      { title: t('user.login'), dataIndex: 'login', key: 'login', fixed: true, width: 150 },
+      { title: t('user.password'), dataIndex: 'password', key: 'password', width: 150 },
+      { title: t('user.name'), dataIndex: 'name', key: 'name', width: 150 },
+      { title: t('user.typeName'), dataIndex: 'type', key: 'type', width: 150 },
       {
         title: t('user.lastVisitDate'),
         dataIndex: 'last_visit_date',
         key: 'last_visit_date',
-        width: '18%',
+        width: 150,
         render: (date: string) => dayjs(date).format(DATE_FORMAT),
       },
       {
@@ -52,7 +52,7 @@ export function useTableColumns(numberSkip: number = 0): TableColumnProps<AnyObj
             onClick={() => navigate(`${pageRoutes.USER_FORM}/${record._id}`)}
           />
         ),
-        width: '4%',
+        width: 50,
       },
     ],
     [navigate, t, numberSkip],
