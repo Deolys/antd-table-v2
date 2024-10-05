@@ -1,7 +1,7 @@
 import { Button, Flex, Layout, Spin } from 'antd';
 import React, { type JSX, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { DeleteUsersButton } from '@/features/delete-users-button';
 import { LanguageSelect } from '@/features/language-select';
@@ -14,12 +14,19 @@ const FiltersForm = lazy(() => import('@/widgets/filters-form'));
 export function MainPage(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   return (
     <Layout>
-      <Header style={{ backgroundColor: '#52618d', position: 'sticky', top: 0, zIndex: 1 }}>
+      <Header style={{ backgroundColor: '#52618d', position: 'sticky', top: 0, zIndex: 4 }}>
         <Flex justify="end" gap={14} align="center" style={{ height: '100%' }}>
-          <Button onClick={() => navigate(pageRoutes.NEW_USER_FORM)}>{t('user.add')}</Button>
+          <Button
+            onClick={() =>
+              navigate(pageRoutes.NEW_USER_FORM, { state: { searchParams: `${searchParams}` } })
+            }
+          >
+            {t('user.add')}
+          </Button>
           <DeleteUsersButton />
           <LanguageSelect />
         </Flex>

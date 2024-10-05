@@ -50,7 +50,7 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
   checkConnection(db);
 
-  const { name, type_id, dateRange } = req.query;
+  const { name, type_id, dateRange, skip = 0, limit = 10 } = req.query;
   let query = {};
 
   if (name) {
@@ -101,9 +101,12 @@ app.get('/users', async (req, res) => {
           type: '$type.name',
         },
       },
-    ]);
+    ]).skip(parseInt(skip))
+    .limit(parseInt(limit));
 
-    res.json(users);
+    const totalCount = await User.countDocuments();
+
+    res.json({ data: users, count: totalCount });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

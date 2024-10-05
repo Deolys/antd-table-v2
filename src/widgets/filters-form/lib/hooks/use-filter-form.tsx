@@ -27,7 +27,7 @@ export function useFilterForm(): FilterFormHook {
       ],
     };
 
-    const newSearchParams = new URLSearchParams();
+    const newSearchParams = new URLSearchParams(searchParams);
     Object.entries(convertedValues).forEach(([key, value]) => {
       if (value) {
         newSearchParams.set(key, value.toString());

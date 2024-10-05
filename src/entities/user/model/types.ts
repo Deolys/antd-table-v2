@@ -24,3 +24,14 @@ export interface UsersFilters {
   type_id?: number;
   dateRange: string[] | Dayjs[];
 }
+
+export type FilterQuery = UsersFilters & {
+  skip: number;
+  limit: number;
+};
+
+export interface FilterResponse {
+  data?: User[];
+  count?: number;
+  error?: string;
+}

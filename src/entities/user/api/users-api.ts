@@ -1,27 +1,38 @@
 import { baseApi } from '@/shared/api';
 
-import type { CreateUser, UpdateUser, User, UserType, UsersFilters } from '../model/types';
+import type {
+  CreateUser,
+  FilterQuery,
+  FilterResponse,
+  UpdateUser,
+  User,
+  UserType,
+} from '../model/types';
 
 interface Result {
-  data: [] | null;
-  error: { message: string; status: number } | null;
+  data?: [] | null;
+  error?: { message: string; status: number } | null;
 }
 
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getFilteredUsers: builder.query<User[], UsersFilters>({
-      query: ({ name, type_id, dateRange }) => {
-        const queryParams = new URLSearchParams({
+    getFilteredUsers: builder.query<FilterResponse, FilterQuery>({
+      query: ({ name, type_id, dateRange, skip, limit }) => {
+        const queryObject = {
           name: name || '',
-          type_id: type_id ? type_id.toString() : '',
+          type_id: type_id ? `${type_id}` : '',
           dateRange: dateRange?.length ? JSON.stringify(dateRange) : '',
-        });
+          skip: `${skip}`,
+          limit: `${limit}`,
+        };
+
+        const queryParams = new URLSearchParams(queryObject);
 
         return `/users?${queryParams.toString()}`;
       },
       providesTags: (result) =>
-        result && result.length > 0
-          ? [...result.map(({ _id }) => ({ type: 'users' as const, id: _id })), 'users']
+        result && result?.data.length > 0
+          ? [...result.data.map(({ _id }) => ({ type: 'users' as const, id: _id })), 'users']
           : ['users'],
     }),
 
@@ -58,7 +69,7 @@ export const usersApi = baseApi.injectEndpoints({
         body: ids,
       }),
       invalidatesTags: (result, error, ids) =>
-        result && result.data && ids.length > 0
+        result && result?.data && ids.length > 0
           ? [...ids.map((id) => ({ type: 'users' as const, id: id })), 'users']
           : ['users'],
     }),
