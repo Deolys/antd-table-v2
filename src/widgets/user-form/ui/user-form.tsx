@@ -43,11 +43,11 @@ export function UserForm(): JSX.Element {
         <Input allowClear placeholder={t('form.placeholder.userName')} />
       </Form.Item>
       <Form.Item
-        label={t('form.label.userLogin')}
-        name="login"
-        rules={[{ required: true, message: t('form.validation.userLogin') }]}
+        label={t('form.label.userEmail')}
+        name="email"
+        rules={[{ required: true, message: t('form.validation.userEmail') }]}
       >
-        <Input allowClear placeholder={t('form.placeholder.userLogin')} />
+        <Input allowClear placeholder={t('form.placeholder.userEmail')} />
       </Form.Item>
       <Form.Item
         label={t('form.label.userPass')}

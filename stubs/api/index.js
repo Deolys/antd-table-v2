@@ -1,5 +1,7 @@
 const User = require('../schemas/user.js');
 const { checkConnection } = require('../utils/db-utils.js');
+const handleValidationErrors = require('../middlewares/validation-errors.js');
+const { userCreateValidation } = require('../validation.js');
 const express = require('express');
 
 const router = express.Router();
@@ -25,16 +27,16 @@ db.once('open', () => {
 app.use(cors());
 app.use(express.json());
 
-app.post('/users', async (req, res) => {
+app.post('/users', userCreateValidation, handleValidationErrors, async (req, res) => {
   checkConnection(db);
 
-  const { name, login, password, type_id } = req.body;
+  const { name, email, password, type_id } = req.body;
   const lastVisitDate = new Date().toISOString().split('T')[0];
 
   try {
     const newUser = new User({
       name,
-      login,
+      email,
       password,
       type_id,
       last_visit_date: lastVisitDate,
@@ -93,7 +95,7 @@ app.get('/users', async (req, res) => {
       {
         $project: {
           _id: 1,
-          login: 1,
+          email: 1,
           password: 1,
           name: 1,
           email: 1,
@@ -101,10 +103,11 @@ app.get('/users', async (req, res) => {
           type: '$type.name',
         },
       },
-    ]).skip(parseInt(skip))
-    .limit(parseInt(limit));
+    ])
+      .skip(parseInt(skip))
+      .limit(parseInt(limit));
 
-    const totalCount = await User.countDocuments();
+    const totalCount = await User.countDocuments(query);
 
     res.json({ data: users, count: totalCount });
   } catch (error) {
@@ -133,14 +136,16 @@ app.get('/users/:id', async (req, res) => {
   }
 });
 
-app.put('/users/:id', async (req, res) => {
+app.put('/users/:id', userCreateValidation, handleValidationErrors, async (req, res) => {
+  checkConnection(db);
+
   const id = req.params.id;
-  const { name, login, password, type_id } = req.body;
+  const { name, email, password, type_id } = req.body;
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { name, login, password, type_id },
+      { name, email, password, type_id },
       { new: true },
     );
 

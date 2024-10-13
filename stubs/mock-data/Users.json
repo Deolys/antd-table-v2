@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "login": "User1Login",
+    "email": "User1Login@mail.ru",
     "password": "User1Pass",
     "name": "Пользователь1",
     "type_id": 1,
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "login": "Admin1Login",
+    "email": "Admin1Login@mail.ru",
     "password": "Admin1Pass",
     "name": "Админ1",
     "type_id": 2,
@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "login": "Mod1Login",
+    "email": "Mod1Login@mail.ru",
     "password": "Mod1Pass",
     "name": "Модератор1",
     "type_id": 3,
@@ -25,7 +25,7 @@
   },
   {
     "id": 4,
-    "login": "Test1Login",
+    "email": "Test1Login@mail.ru",
     "password": "Test1Pass",
     "name": "Тест1",
     "type_id": 4,
@@ -33,7 +33,7 @@
   },
   {
     "id": 5,
-    "login": "Guest1Login",
+    "email": "Guest1Login@mail.ru",
     "password": "Guest1Pass",
     "name": "Гость1",
     "type_id": 5,
@@ -41,7 +41,7 @@
   },
   {
     "id": 6,
-    "login": "User2Login",
+    "email": "User2Login@mail.ru",
     "password": "User2Pass",
     "name": "Пользователь2",
     "type_id": 1,
@@ -49,7 +49,7 @@
   },
   {
     "id": 7,
-    "login": "Admin2Login",
+    "email": "Admin2Login@mail.ru",
     "password": "Admin2Pass",
     "name": "Админ2",
     "type_id": 2,
@@ -57,7 +57,7 @@
   },
   {
     "id": 8,
-    "login": "Mod2Login",
+    "email": "Mod2Login@mail.ru",
     "password": "Mod2Pass",
     "name": "Модератор2",
     "type_id": 3,
@@ -65,7 +65,7 @@
   },
   {
     "id": 9,
-    "login": "Test2Login",
+    "email": "Test2Login@mail.ru",
     "password": "Test2Pass",
     "name": "Тест2",
     "type_id": 4,
@@ -73,7 +73,7 @@
   },
   {
     "id": 10,
-    "login": "Guest2Login",
+    "email": "Guest2Login@mail.ru",
     "password": "Guest2Pass",
     "name": "Гость2",
     "type_id": 5,
@@ -81,7 +81,7 @@
   },
   {
     "id": 11,
-    "login": "User3Login",
+    "email": "User3Login@mail.ru",
     "password": "User3Pass",
     "name": "Пользователь3",
     "type_id": 1,
@@ -89,7 +89,7 @@
   },
   {
     "id": 12,
-    "login": "Admin3Login",
+    "email": "Admin3Login@mail.ru",
     "password": "Admin3Pass",
     "name": "Админ3",
     "type_id": 2,
@@ -97,7 +97,7 @@
   },
   {
     "id": 13,
-    "login": "Mod3Login",
+    "email": "Mod3Login@mail.ru",
     "password": "Mod3Pass",
     "name": "Модератор3",
     "type_id": 3,
@@ -105,7 +105,7 @@
   },
   {
     "id": 14,
-    "login": "Test3Login",
+    "email": "Test3Login@mail.ru",
     "password": "Test3Pass",
     "name": "Тест3",
     "type_id": 4,
@@ -113,7 +113,7 @@
   },
   {
     "id": 15,
-    "login": "Guest3Login",
+    "email": "Guest3Login@mail.ru",
     "password": "Guest3Pass",
     "name": "Гость3",
     "type_id": 5,
@@ -121,7 +121,7 @@
   },
   {
     "id": 16,
-    "login": "andr16",
+    "email": "andr16@mail.ru",
     "password": "qwerty",
     "name": "Андрей",
     "type_id": 1,
@@ -129,7 +129,7 @@
   },
   {
     "id": 17,
-    "login": "serg123",
+    "email": "serg123@mail.ru",
     "password": "asdfgh",
     "name": "Сергей",
     "type_id": 5,
@@ -137,7 +137,7 @@
   },
   {
     "id": 18,
-    "login": "anttoonn",
+    "email": "anttoonn@mail.ru",
     "password": "123qwert",
     "name": "Антон",
     "type_id": 3,
@@ -145,7 +145,7 @@
   },
   {
     "id": 19,
-    "login": "sasha1997",
+    "email": "sasha1997@mail.ru",
     "password": "19970101",
     "name": "Александр",
     "type_id": 2,
@@ -153,7 +153,7 @@
   },
   {
     "id": 20,
-    "login": "nat789",
+    "email": "nat789@mail.ru",
     "password": "passworddrowssap",
     "name": "Наталья",
     "type_id": 1,
@@ -161,7 +161,7 @@
   },
   {
     "id": 21,
-    "login": "olggaa",
+    "email": "olggaa@mail.ru",
     "password": "mypass123",
     "name": "Ольга",
     "type_id": 4,
@@ -169,7 +169,7 @@
   },
   {
     "id": 22,
-    "login": "max123",
+    "email": "max123@mail.ru",
     "password": "pass789",
     "name": "Максим",
     "type_id": 4,
@@ -177,7 +177,7 @@
   },
   {
     "id": 23,
-    "login": "pavel546",
+    "email": "pavel546@mail.ru",
     "password": "5tgb4rfv",
     "name": "Павел",
     "type_id": 5,
@@ -185,7 +185,7 @@
   },
   {
     "id": 24,
-    "login": "mar1983",
+    "email": "mar1983@mail.ru",
     "password": "123456789",
     "name": "Мария",
     "type_id": 3,
@@ -193,7 +193,7 @@
   },
   {
     "id": 25,
-    "login": "oleggelo",
+    "email": "oleggelo@mail.ru",
     "password": "drowssap",
     "name": "Олег",
     "type_id": 1,
@@ -201,7 +201,7 @@
   },
   {
     "id": 26,
-    "login": "viktorr",
+    "email": "viktorr@mail.ru",
     "password": "drowssap123",
     "name": "Виктор",
     "type_id": 2,
@@ -209,7 +209,7 @@
   },
   {
     "id": 27,
-    "login": "alina123",
+    "email": "alina123@mail.ru",
     "password": "passssap",
     "name": "Алина",
     "type_id": 5,
@@ -217,7 +217,7 @@
   },
   {
     "id": 28,
-    "login": "kir1990",
+    "email": "kir1990@mail.ru",
     "password": "235423723445",
     "name": "Кирилл",
     "type_id": 1,
@@ -225,7 +225,7 @@
   },
   {
     "id": 29,
-    "login": "alisa82",
+    "email": "alisa82@mail.ru",
     "password": "zxcvbn",
     "name": "Алиса",
     "type_id": 1,
@@ -233,7 +233,7 @@
   },
   {
     "id": 30,
-    "login": "viktoria9",
+    "email": "viktoria9@mail.ru",
     "password": "poilkjy",
     "name": "Виктория",
     "type_id": 3,
@@ -241,7 +241,7 @@
   },
   {
     "id": 31,
-    "login": "nasttsan",
+    "email": "nasttsan@mail.ru",
     "password": "toppass789",
     "name": "Анастасия",
     "type_id": 2,
@@ -249,7 +249,7 @@
   },
   {
     "id": 32,
-    "login": "georg4",
+    "email": "georg4@mail.ru",
     "password": "gfhjkm",
     "name": "Георгий",
     "type_id": 4,
@@ -257,7 +257,7 @@
   },
   {
     "id": 33,
-    "login": "ilya789",
+    "email": "ilya789@mail.ru",
     "password": "mkjhfg",
     "name": "Илья",
     "type_id": 3,
@@ -265,7 +265,7 @@
   },
   {
     "id": 34,
-    "login": "anna3",
+    "email": "anna3@mail.ru",
     "password": "trefmpomsd213",
     "name": "Анна",
     "type_id": 2,
@@ -273,7 +273,7 @@
   },
   {
     "id": 35,
-    "login": "katyaaytak",
+    "email": "katyaaytak@mail.ru",
     "password": "qwerty987",
     "name": "Екатерина",
     "type_id": 3,

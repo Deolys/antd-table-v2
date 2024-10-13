@@ -9,7 +9,7 @@
     "edit": "Edit"
   },
   "user": {
-    "login": "Login",
+    "email": "Email",
     "password": "Password",
     "name": "Name",
     "lastVisitDate": "Last visit date",
@@ -29,7 +29,7 @@
     "editUserTitle": "Edit user",
     "label": {
       "userName": "User's name",
-      "userLogin": "User's login",
+      "userEmail": "User's email",
       "userPass": "User's password",
       "type": "User type",
       "dateFrom": "Date from",
@@ -37,7 +37,7 @@
     },
     "placeholder": {
       "userName": "Enter the user's name",
-      "userLogin": "Enter the user's login",
+      "userEmail": "Enter the user's email",
       "userPass": "Enter the user's password",
       "type": "Select the user type"
     },
@@ -48,7 +48,7 @@
     },
     "validation": {
       "userName": "Fill the user's name field",
-      "userLogin": "Fill the login field",
+      "userEmail": "Fill the email field",
       "userPass": "Fill the password field",
       "type": "Fill the type field"
     }

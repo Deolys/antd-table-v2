@@ -31,6 +31,8 @@ export function useFilterForm(): FilterFormHook {
     Object.entries(convertedValues).forEach(([key, value]) => {
       if (value) {
         newSearchParams.set(key, value.toString());
+      } else {
+        newSearchParams.delete(key);
       }
     });
 

@@ -20,7 +20,7 @@ export function UserPage(): JSX.Element {
         <Flex justify="space-between" gap={14} align="center" style={{ height: '100%' }}>
           <Button
             onClick={() =>
-              navigate(`${pageRoutes.MAIN}?${location.state.searchParams || 'page=1'}`)
+              navigate(`${pageRoutes.MAIN}?${location.state?.searchParams || 'page=1'}`)
             }
           >
             {t('common.toMain')}
