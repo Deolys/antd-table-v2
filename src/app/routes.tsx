@@ -10,6 +10,7 @@ export const PageRoutes = (): JSX.Element => {
     <Routes>
       <Route path={pageRoutes.MAIN} element={<MainPage />} />
       <Route path={pageRoutes.USER_FORM_ID} element={<UserPage />} />
+      <Route path={'*'} element={<h1>Page not found</h1>} />
     </Routes>
   );
 };

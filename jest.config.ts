@@ -1,7 +1,7 @@
 export default {
   clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: ['./src/**/*.ts?(x)'],
+  collectCoverageFrom: ['./src/**/*.ts?(x)', '!./src/app/index.tsx'],
   coverageDirectory: '<rootDir>/reports/coverage',
   coverageProvider: 'v8',
   coverageReporters: [

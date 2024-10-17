@@ -31,7 +31,7 @@ export const usersApi = baseApi.injectEndpoints({
         return `/users?${queryParams.toString()}`;
       },
       providesTags: (result) =>
-        result && result?.data.length > 0
+        result && result?.data?.length > 0
           ? [...result.data.map(({ _id }) => ({ type: 'users' as const, id: _id })), 'users']
           : ['users'],
     }),
