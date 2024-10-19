@@ -12,6 +12,15 @@
   scrollbar-color: rgb(139 158 215) #f0f0f0;
 }
 
+li.ant-menu-submenu-horizontal {
+  padding-inline: 0!important;
+  width: 32px;
+}
+
+.ant-table-thead>tr>th {
+  overflow-wrap: normal!important;
+}
+
 #app {
   min-width: 320px;
   min-height: 100vh;

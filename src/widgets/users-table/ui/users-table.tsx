@@ -1,5 +1,6 @@
-import { Table } from 'antd';
+import { Empty, Table } from 'antd';
 import React, { type JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useTableColumns, useTableParams } from '../lib/hooks';
 
@@ -7,6 +8,11 @@ export function UsersTable(): JSX.Element {
   const { tableParams, handleTableChange, users, skip, isFetching, rowSelection } =
     useTableParams();
   const columns = useTableColumns(skip);
+  const { t } = useTranslation();
+
+  if (!isFetching && !users?.length) {
+    return <Empty description={t('messages.error.userList')} />;
+  }
 
   return (
     <Table
@@ -21,7 +27,7 @@ export function UsersTable(): JSX.Element {
         type: 'checkbox',
         ...rowSelection,
       }}
-      scroll={{ x: 'max-content', y: 'calc(95vh - 180px)' }}
+      scroll={{ x: 'max-content', y: 'calc(95vh - 188px)' }}
       onChange={handleTableChange}
     />
   );

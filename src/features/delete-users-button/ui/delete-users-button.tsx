@@ -1,4 +1,5 @@
 import { Button, Popconfirm } from 'antd';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +14,7 @@ export function DeleteUsersButton(): JSX.Element {
   const dispatch = useAppDispatch();
   const selectedUsers = useAppSelector(selectedUserIds);
   const [deleteUsers] = useDeleteUsersMutation();
+  const screen = useBreakpoint();
 
   const handleDelete = async (): Promise<void> => {
     try {
@@ -39,7 +41,7 @@ export function DeleteUsersButton(): JSX.Element {
       okButtonProps={{ style: { width: 70 } }}
       cancelButtonProps={{ style: { width: 70 } }}
     >
-      <Button danger disabled={selectedUsers.length === 0}>
+      <Button danger disabled={selectedUsers.length === 0} block={!screen.md}>
         {t('user.delete')}
       </Button>
     </Popconfirm>

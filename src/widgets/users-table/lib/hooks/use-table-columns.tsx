@@ -1,20 +1,21 @@
-import { Button, type TableColumnProps } from 'antd';
+import { Button, type TableColumnsType } from 'antd';
 import type { AnyObject } from 'antd/es/_util/type';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import editIcon from '@/assets/icons/edit-icon.svg';
 import type { User } from '@/entities/user';
 import { DATE_FORMAT, pageRoutes } from '@/shared/consts';
 
-export function useTableColumns(numberSkip: number = 0): TableColumnProps<AnyObject>[] {
+export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObject> {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const columns = useMemo(
-    () => [
+    (): TableColumnsType<AnyObject> => [
       {
         title: '№',
         dataIndex: '_id',
@@ -23,7 +24,7 @@ export function useTableColumns(numberSkip: number = 0): TableColumnProps<AnyObj
         width: 50,
         render: (_text, _record, index: number) => <span>{index + numberSkip + 1}</span>,
       },
-      { title: t('user.email'), dataIndex: 'email', key: 'email', fixed: true, width: 150 },
+      { title: t('user.email'), dataIndex: 'email', key: 'email', width: 150 },
       { title: t('user.password'), dataIndex: 'password', key: 'password', width: 150 },
       { title: t('user.name'), dataIndex: 'name', key: 'name', width: 150 },
       { title: t('user.typeName'), dataIndex: 'type', key: 'type', width: 150 },
@@ -36,9 +37,9 @@ export function useTableColumns(numberSkip: number = 0): TableColumnProps<AnyObj
       },
       {
         title: '',
-        dataIndex: '',
+        dataIndex: 'action',
         key: 'action',
-        render: (record: User) => (
+        render: (_text, record: User) => (
           <Button
             icon={
               <img
@@ -49,13 +50,17 @@ export function useTableColumns(numberSkip: number = 0): TableColumnProps<AnyObj
                 alt={t('common.edit')}
               />
             }
-            onClick={() => navigate(`${pageRoutes.USER_FORM}/${record._id}`)}
+            onClick={() =>
+              navigate(`${pageRoutes.USER_FORM}/${record._id}`, {
+                state: { searchParams: `${searchParams}` },
+              })
+            }
           />
         ),
         width: 50,
       },
     ],
-    [navigate, t, numberSkip],
+    [navigate, t, numberSkip, searchParams],
   );
 
   return columns;

@@ -1,4 +1,5 @@
 import { Button, Flex, Layout } from 'antd';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,10 +14,11 @@ export function UserPage(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const screen = useBreakpoint();
 
   return (
     <Layout>
-      <Header style={{ backgroundColor: '#52618d' }}>
+      <Header style={{ backgroundColor: '#52618d', paddingInline: screen.md ? 50 : 10 }}>
         <Flex justify="space-between" gap={14} align="center" style={{ height: '100%' }}>
           <Button
             onClick={() =>
@@ -28,7 +30,7 @@ export function UserPage(): JSX.Element {
           <LanguageSelect />
         </Flex>
       </Header>
-      <Content style={{ marginInline: 50 }}>
+      <Content style={{ marginInline: screen.md ? 50 : 10 }}>
         <UserForm />
       </Content>
     </Layout>
