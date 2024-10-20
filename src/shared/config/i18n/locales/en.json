@@ -62,7 +62,8 @@
       "updateUser": "An error occurred while updating the user",
       "createUser": "An error occurred while creating the user",
       "userList": "An error occurred while retrieving the list of users",
-      "something": "Something went wrong..."
+      "something": "Something went wrong...",
+      "emptyData": "No data"
     },
     "success": {
       "updateUser": "The user's data has been successfully updated",

@@ -2,6 +2,7 @@ import { waitFor } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
+import { ErrorPage } from '@/pages/error-page';
 import { pageRoutes } from '@/shared/consts';
 import { renderWithProviders } from '@/shared/test/utils';
 
@@ -9,7 +10,7 @@ import App from './app';
 import { PageRoutes } from './routes';
 
 describe('Routes', () => {
-  it('App renders without crashing', async () => {
+  it('app renders without crashing', async () => {
     const { container } = renderWithProviders(<App />);
 
     await waitFor(() => {
@@ -17,7 +18,7 @@ describe('Routes', () => {
     });
   });
 
-  it('Renders the main page without crashing', async () => {
+  it('renders the main page without crashing', async () => {
     const { container } = renderWithProviders(
       <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
         <PageRoutes />
@@ -29,10 +30,22 @@ describe('Routes', () => {
     });
   });
 
-  it('Renders the user form page without crashing', async () => {
+  it('renders the user form page without crashing', async () => {
     const { container } = renderWithProviders(
       <MemoryRouter initialEntries={[pageRoutes.NEW_USER_FORM]}>
         <PageRoutes />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(container).toBeInTheDocument();
+    });
+  });
+
+  it('renders the error page without crashing', async () => {
+    const { container } = renderWithProviders(
+      <MemoryRouter>
+        <ErrorPage />
       </MemoryRouter>,
     );
 

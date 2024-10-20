@@ -11,7 +11,7 @@ export function UsersTable(): JSX.Element {
   const { t } = useTranslation();
 
   if (!isFetching && !users?.length) {
-    return <Empty description={t('messages.error.userList')} />;
+    return <Empty description={t('messages.error.emptyData')} />;
   }
 
   return (

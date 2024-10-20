@@ -9,6 +9,7 @@ export function UserFormSkeleton(): JSX.Element {
       justify="center"
       align="end"
       style={{ height: '640px', maxWidth: '460px', margin: '0 auto' }}
+      data-testid="user-form-skeleton"
     >
       <Skeleton.Input active block />
       <Skeleton.Input active block />

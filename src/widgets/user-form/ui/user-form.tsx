@@ -54,7 +54,7 @@ export function UserForm(): JSX.Element {
         name="password"
         rules={[{ required: true, message: t('form.validation.userPass') }]}
       >
-        <Input allowClear placeholder={t('form.placeholder.userPass')} />
+        <Input.Password placeholder={t('form.placeholder.userPass')} />
       </Form.Item>
       <Form.Item
         label={t('form.label.type')}
