@@ -76,5 +76,10 @@
     "warn": {
       "deleteUsers": "Are you sure you want to delete the selected users?"
     }
+  },
+  "text": {
+    "pageIsHiding": "The page you're looking for is hiding...",
+    "searchHere": "Search here",
+    "canFindIt": "Can you find it?"
   }
 }
