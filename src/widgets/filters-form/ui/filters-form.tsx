@@ -27,6 +27,9 @@ function FiltersForm(): JSX.Element {
       }}
       layout="vertical"
     >
+      <Form.Item label={t('form.label.userEmail')} name="email">
+        <Input allowClear placeholder={t('form.placeholder.userEmail')} />
+      </Form.Item>
       <Form.Item label={t('form.label.userName')} name="name">
         <Input allowClear placeholder={t('form.placeholder.userName')} />
       </Form.Item>

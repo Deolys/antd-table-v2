@@ -52,8 +52,12 @@ app.post('/users', userCreateValidation, handleValidationErrors, async (req, res
 app.get('/users', async (req, res) => {
   checkConnection(db);
 
-  const { name, type_id, dateRange, skip = 0, limit = 10 } = req.query;
+  const { email, name, type_id, dateRange, skip = 0, limit = 10 } = req.query;
   let query = {};
+
+  if (email) {
+    query.email = { $regex: email, $options: 'i' };
+   }
 
   if (name) {
     query.name = { $regex: name, $options: 'i' };
@@ -98,7 +102,6 @@ app.get('/users', async (req, res) => {
           email: 1,
           password: 1,
           name: 1,
-          email: 1,
           last_visit_date: 1,
           type: '$type.name',
         },

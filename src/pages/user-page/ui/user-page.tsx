@@ -30,7 +30,7 @@ export function UserPage(): JSX.Element {
           <LanguageSelect />
         </Flex>
       </Header>
-      <Content style={{ marginInline: screen.md ? 50 : 10 }}>
+      <Content style={{ paddingInline: screen.md ? 50 : 10 }}>
         <UserForm />
       </Content>
     </Layout>

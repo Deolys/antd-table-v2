@@ -54,7 +54,7 @@ export function MainPage(): JSX.Element {
           backgroundColor: '#52618d',
           position: 'sticky',
           top: 0,
-          zIndex: 4,
+          zIndex: 6,
           paddingInline: screen.md ? 50 : 10,
         }}
       >
@@ -76,7 +76,7 @@ export function MainPage(): JSX.Element {
         </Flex>
       </Header>
       <Layout>
-        <Content style={{ marginInline: screen.md ? 50 : 10, marginTop: screen.md ? 0 : 48 }}>
+        <Content style={{ paddingInline: screen.md ? 50 : 10, paddingTop: 48 }}>
           <UsersTable />
         </Content>
         <Sider
@@ -93,7 +93,7 @@ export function MainPage(): JSX.Element {
             color: '#1890ff',
           }}
           style={{
-            height: 'calc(100vh - 64px)',
+            height: 'calc(100dvh - 64px)',
             position: screen.lg ? 'sticky' : 'absolute',
             zIndex: 5,
             top: 64,

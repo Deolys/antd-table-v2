@@ -47,6 +47,7 @@ export function useTableParams(): TableParamsHook {
     error,
     isFetching,
   } = useGetFilteredUsersQuery({
+    email: searchParams.get('email'),
     name: searchParams.get('name'),
     type_id: +searchParams.get('type_id'),
     dateRange: searchParams.get('dateRange')?.split(',') || [

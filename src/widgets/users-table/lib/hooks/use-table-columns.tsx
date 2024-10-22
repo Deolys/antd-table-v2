@@ -20,7 +20,7 @@ export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObj
         title: '№',
         dataIndex: '_id',
         key: 'identifier',
-        fixed: true,
+        fixed: 'left',
         width: 50,
         render: (_text, _record, index: number) => <span>{index + numberSkip + 1}</span>,
       },
@@ -57,7 +57,8 @@ export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObj
             }
           />
         ),
-        width: 50,
+        fixed: 'right',
+        width: 48,
       },
     ],
     [navigate, t, numberSkip, searchParams],

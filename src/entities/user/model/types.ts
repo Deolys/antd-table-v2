@@ -20,6 +20,7 @@ export type UpdateUser = Omit<User, 'last_visit_date' | 'type'>;
 export type CreateUser = Omit<UpdateUser, '_id'>;
 
 export interface UsersFilters {
+  email?: string;
   name?: string;
   type_id?: number;
   dateRange: string[] | Dayjs[];

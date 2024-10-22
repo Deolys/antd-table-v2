@@ -17,6 +17,7 @@ export function UsersTable(): JSX.Element {
   return (
     <Table
       bordered
+      virtual
       size="middle"
       loading={isFetching}
       dataSource={users}
@@ -25,9 +26,10 @@ export function UsersTable(): JSX.Element {
       rowKey={(record) => record._id}
       rowSelection={{
         type: 'checkbox',
+        columnWidth: 50,
         ...rowSelection,
       }}
-      scroll={{ x: 'max-content', y: 'calc(95vh - 188px)' }}
+      scroll={{ x: 898, y: document.documentElement.clientHeight * 0.95 - 208 }}
       onChange={handleTableChange}
     />
   );

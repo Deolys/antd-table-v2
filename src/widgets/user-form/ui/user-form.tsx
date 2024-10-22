@@ -1,4 +1,5 @@
 import { Flex, Form, Input, Select, Typography } from 'antd';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +14,7 @@ export function UserForm(): JSX.Element {
   const { user, isLoading, onFinish } = useUserForm();
   const { options } = useUserTypeSelect();
   const [form] = Form.useForm();
+  const screen = useBreakpoint();
 
   if (isLoading) {
     return <UserFormSkeleton />;
@@ -23,7 +25,7 @@ export function UserForm(): JSX.Element {
       form={form}
       style={{
         padding: 20,
-        maxWidth: 500,
+        width: screen.sm ? 500 : 300,
         margin: '40px auto',
         borderRadius: 10,
         border: '1px solid #52618d',

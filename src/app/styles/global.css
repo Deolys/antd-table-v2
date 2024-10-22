@@ -23,9 +23,14 @@ li.ant-menu-submenu-horizontal {
 
 #app {
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+}
+
+main {
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 html {
