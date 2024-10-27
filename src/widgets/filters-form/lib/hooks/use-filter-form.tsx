@@ -21,6 +21,7 @@ export function useFilterForm(): FilterFormHook {
 
   const onFinish = (values: UsersFilters): void => {
     const convertedValues = {
+      page: 1,
       ...values,
       dateRange: [
         dayjs(values.dateRange[0]).format(DATE_FORMAT),

@@ -37,6 +37,20 @@ export function useTableParams(): TableParamsHook {
     },
   });
 
+  const pageParam = searchParams.get('page');
+
+  useEffect(() => {
+    if (pageParam && tableParams.pagination.current !== +pageParam) {
+      setTableParams((prevTableParams) => ({
+        ...prevTableParams,
+        pagination: {
+          ...prevTableParams.pagination,
+          current: +pageParam,
+        },
+      }));
+    }
+  }, [pageParam, tableParams.pagination]);
+
   const currentPage = tableParams.pagination.current;
 
   const limit = tableParams.pagination.pageSize;
