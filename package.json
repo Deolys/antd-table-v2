@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@brojs/cli": "^1.0.0",
+    "@brojs/cli": "^1.6.0",
     "@reduxjs/toolkit": "^2.2.7",
     "antd": "^5.20.6",
     "cors": "^2.8.5",

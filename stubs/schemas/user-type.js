@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userTypeSchema = new mongoose.Schema({
   id: Number,
@@ -6,4 +6,4 @@ const userTypeSchema = new mongoose.Schema({
   allow_edit: Boolean,
 });
 
-module.exports = mongoose.model("UserType", userTypeSchema);
+module.exports = mongoose.model('UserType', userTypeSchema);

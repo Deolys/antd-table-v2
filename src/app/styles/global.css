@@ -13,12 +13,12 @@
 }
 
 li.ant-menu-submenu-horizontal {
-  padding-inline: 0!important;
+  padding-inline: 0 !important;
   width: 32px;
 }
 
-.ant-table-thead>tr>th {
-  overflow-wrap: normal!important;
+.ant-table-thead > tr > th {
+  overflow-wrap: normal !important;
 }
 
 #app {
