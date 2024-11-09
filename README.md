@@ -1,4 +1,4 @@
-## Antd Table V2 - Enhanced Table Component for React
+## Antd Table V2 - улучшенная версия [приложения для управления пользователями](https://github.com/Deolys/antd-table)
 
 [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
 [![Redux-Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?logo=redux&logoColor=fff)](#)
