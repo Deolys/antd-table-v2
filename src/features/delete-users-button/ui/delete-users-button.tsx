@@ -25,6 +25,8 @@ export function DeleteUsersButton(): JSX.Element {
         const tKey = count === 1 ? 'one' : 'many';
         showSuccessMessage(t(`messages.success.deleteUsers.${tKey}`, { count }));
         dispatch(clearSelectedUsers());
+      } else {
+        showErrorMessage(t(`messages.error.deleteUsers`));
       }
     } catch {
       showErrorMessage(t(`messages.error.deleteUsers`));

@@ -1,26 +1,33 @@
 const User = require('../schemas/user.js');
 const { checkConnection } = require('../utils/db-utils.js');
 const { db } = require('../db.js');
+const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
   checkConnection(db);
 
-  const { name, email, password, type_id } = req.body;
+  const { name, email, password, description, type_id } = req.body;
   const lastVisitDate = new Date().toISOString().split('T')[0];
 
   try {
-    const newUser = new User({
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const doc = new User({
       name,
       email,
-      password,
+      password: hash,
       type_id,
+      description,
       last_visit_date: lastVisitDate,
     });
-    await newUser.save();
+    const newUser = await doc.save();
 
-    res.status(201).json(newUser);
+    const { password: passwordHash, ...userData } = newUser._doc;
+
+    res.status(201).json(userData);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -51,7 +58,7 @@ const getUsers = async (req, res) => {
         $lte: new Date(dateTo),
       };
     } catch (error) {
-      return res.status(400).json({ error: `Invalid date range format: ${error}` });
+      return res.status(400).json({ message: `Invalid date range format: ${error}` });
     }
   }
 
@@ -75,8 +82,9 @@ const getUsers = async (req, res) => {
         $project: {
           _id: 1,
           email: 1,
-          password: 1,
+          // password: 1,
           name: 1,
+          description: 1,
           last_visit_date: 1,
           type: '$type.name',
         },
@@ -89,7 +97,7 @@ const getUsers = async (req, res) => {
 
     res.json({ data: users, count: totalCount });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -105,12 +113,13 @@ const getUserById = async (req, res) => {
     const user = await User.findById(id);
 
     if (user) {
-      res.json(user);
+      const { password, ...userData } = user._doc;
+      res.json(userData);
     } else {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -118,22 +127,25 @@ const updateUser = async (req, res) => {
   checkConnection(db);
 
   const id = req.params.id;
-  const { name, email, password, type_id } = req.body;
+  const { name, email, password, description, type_id } = req.body;
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { name, email, password, type_id },
-      { new: true },
-    );
+    const updateData = { name, email, description, type_id };
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
+      updateData.password = hash;
+    }
+    const user = await User.findByIdAndUpdate(id, updateData, { new: true });
 
-    if (updatedUser) {
-      res.json(updatedUser);
+    if (user) {
+      const { password, ...userData } = user._doc;
+      res.json(userData);
     } else {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -148,11 +160,11 @@ const deleteUser = async (req, res) => {
 
       return res.status(204).end();
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ message: error.message });
     }
   }
 
-  res.status(400).json({ error: 'No users provided' });
+  res.status(400).json({ message: 'No users provided' });
 };
 
 const getUserTypes = async (req, res) => {
@@ -164,7 +176,7 @@ const getUserTypes = async (req, res) => {
 
     res.json(userTypes);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

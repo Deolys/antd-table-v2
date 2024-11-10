@@ -12,6 +12,12 @@ export const URLs = {
       getUrl: (userId: string) =>
         generatePath(`${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`, { userId }),
     },
+    login:
+      getNavigationValue('antd-table-v2.user.login') &&
+      `${baseUrl}${getNavigationValue('antd-table-v2.user.login')}`,
+    register:
+      getNavigationValue('antd-table-v2.user.register') &&
+      `${baseUrl}${getNavigationValue('antd-table-v2.user.register')}`,
   },
   api: {
     main: getConfigValue('antd-table-v2.api'),

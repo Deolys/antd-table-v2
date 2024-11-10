@@ -3,8 +3,8 @@ import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FormSubmitButton } from '@/features/form-submit-button';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
+import { FormSubmitButton } from '@/shared/ui';
 
 import { useUserForm } from '../lib/hooks';
 import { UserFormSkeleton } from './user-form.skeleton';
@@ -47,14 +47,22 @@ export function UserForm(): JSX.Element {
       <Form.Item
         label={t('form.label.userEmail')}
         name="email"
-        rules={[{ required: true, message: t('form.validation.userEmail') }]}
+        rules={[
+          { required: true, message: t('form.validation.userEmail') },
+          {
+            type: 'email',
+            message: t('form.validation.incorrectEmail'),
+          },
+        ]}
+        validateDebounce={700}
+        hasFeedback
       >
         <Input allowClear placeholder={t('form.placeholder.userEmail')} />
       </Form.Item>
       <Form.Item
         label={t('form.label.userPass')}
         name="password"
-        rules={[{ required: true, message: t('form.validation.userPass') }]}
+        rules={[{ required: !user, message: t('form.validation.userPass') }]}
       >
         <Input.Password placeholder={t('form.placeholder.userPass')} />
       </Form.Item>
@@ -73,6 +81,13 @@ export function UserForm(): JSX.Element {
           }
           options={options}
         />
+      </Form.Item>
+      <Form.Item
+        label={t('form.label.aboutMe')}
+        name="description"
+        rules={[{ max: 400, message: t('form.validation.maxLength400') }]}
+      >
+        <Input.TextArea placeholder={t('form.placeholder.description')} />
       </Form.Item>
       <Flex justify="end">
         <FormSubmitButton form={form}>{t('form.button.send')}</FormSubmitButton>

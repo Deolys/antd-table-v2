@@ -9,9 +9,10 @@ export type UserType = {
 export type User = Omit<UserType, 'allow_edit' | 'id'> & {
   _id: string;
   email: string;
-  password: string;
+  password?: string;
   type_id: number;
   type?: string;
+  description?: string;
   last_visit_date: string;
 };
 

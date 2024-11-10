@@ -22,7 +22,8 @@
     },
     "add": "Add a user",
     "delete": "Delete selected ones",
-    "typeName": "Type"
+    "typeName": "Type",
+    "description": "Description"
   },
   "form": {
     "createUserTitle": "Create a user",
@@ -33,25 +34,42 @@
       "userPass": "User's password",
       "type": "User type",
       "dateFrom": "Date from",
-      "dateTo": "Date to"
+      "dateTo": "Date to",
+      "aboutMe": "About me",
+      "email": "Email",
+      "password": "Password",
+      "name": "Name",
+      "confirmPassword": "Confirm the password"
     },
     "placeholder": {
       "userName": "Enter the user's name",
       "userEmail": "Enter the user's email",
       "userPass": "Enter the user's password",
-      "type": "Select the user type"
+      "type": "Select the user type",
+      "description": "Description"
     },
     "button": {
       "search": "Search",
       "send": "Send",
-      "resetFilters": "Reset filters"
+      "resetFilters": "Reset filters",
+      "login": "Login",
+      "register": "Register"
     },
     "validation": {
       "userName": "Fill the user's name field",
       "userEmail": "Fill the email field",
       "userPass": "Fill the password field",
-      "type": "Fill the type field"
-    }
+      "type": "Fill the type field",
+      "maxLength400": "The maximum number of characters is 400",
+      "incorrectEmail": "Incorrect email format",
+      "name": "Fill the name field",
+      "passwordsMatch": "Passwords must match"
+    },
+    "dontHaveAccount": "Don't have an account?",
+    "login": "Login",
+    "register": "Registration",
+    "haveAccount": "Already have an account?",
+    "logout": "Logout"
   },
   "messages": {
     "error": {
@@ -63,7 +81,9 @@
       "createUser": "An error occurred while creating the user",
       "userList": "An error occurred while retrieving the list of users",
       "something": "Something went wrong...",
-      "emptyData": "No data"
+      "emptyData": "No data",
+      "login": "An error occured during authorization",
+      "register": "An error occured during registration"
     },
     "success": {
       "updateUser": "The user's data has been successfully updated",

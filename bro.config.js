@@ -17,6 +17,8 @@ module.exports = {
   navigations: {
     'antd-table-v2.main': '/antd-table-v2',
     'antd-table-v2.user.id': '/user/:id',
+    'antd-table-v2.auth.login': '/auth/login',
+    'antd-table-v2.auth.register': '/auth/register',
   },
   features: {
     'antd-table-v2': {
