@@ -4,6 +4,7 @@ import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { LogoutButton } from '@/features/auth';
 import { LanguageSelect } from '@/features/language-select';
 import { pageRoutes } from '@/shared/consts';
 import { UserForm } from '@/widgets/user-form';
@@ -27,7 +28,10 @@ export function UserPage(): JSX.Element {
           >
             {t('common.toMain')}
           </Button>
-          <LanguageSelect />
+          <Flex gap={14}>
+            <LanguageSelect />
+            <LogoutButton />
+          </Flex>
         </Flex>
       </Header>
       <Content style={{ paddingInline: screen.md ? 50 : 10 }}>

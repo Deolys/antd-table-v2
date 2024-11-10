@@ -24,8 +24,7 @@ export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObj
         width: 50,
         render: (_text, _record, index: number) => <span>{index + numberSkip + 1}</span>,
       },
-      { title: t('user.email'), dataIndex: 'email', key: 'email', width: 150 },
-      { title: t('user.password'), dataIndex: 'password', key: 'password', width: 150 },
+      { title: t('user.email'), dataIndex: 'email', key: 'email', width: 150, ellipsis: true },
       { title: t('user.name'), dataIndex: 'name', key: 'name', width: 150 },
       { title: t('user.typeName'), dataIndex: 'type', key: 'type', width: 150 },
       {
@@ -34,6 +33,13 @@ export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObj
         key: 'last_visit_date',
         width: 150,
         render: (date: string) => dayjs(date).format(DATE_FORMAT),
+      },
+      {
+        title: t('user.description'),
+        dataIndex: 'description',
+        key: 'description',
+        width: 400,
+        ellipsis: true,
       },
       {
         title: '',

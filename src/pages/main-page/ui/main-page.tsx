@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import menuIcon from '@/assets/icons/menu-icon.svg';
+import { LogoutButton } from '@/features/auth';
 import { DeleteUsersButton } from '@/features/delete-users-button';
 import { LanguageSelect } from '@/features/language-select';
 import { pageRoutes } from '@/shared/consts';
@@ -66,10 +67,12 @@ export function MainPage(): JSX.Element {
               </Button>
               <DeleteUsersButton />
               <LanguageSelect />
+              <LogoutButton />
             </>
           ) : (
             <>
               <LanguageSelect />
+              <LogoutButton />
               <Menu mode="horizontal" items={items} style={{ backgroundColor: '#52618d' }} />
             </>
           )}

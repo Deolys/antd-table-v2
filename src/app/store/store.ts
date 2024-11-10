@@ -1,11 +1,13 @@
 import { type Store, combineReducers, configureStore } from '@reduxjs/toolkit';
 
+import { authReducer } from '@/features/auth';
 import { selectedUsersReducer } from '@/features/delete-users-button';
 import { baseApi } from '@/shared/api';
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   selectedUsers: selectedUsersReducer,
+  auth: authReducer,
 });
 
 export const setupStore = (preloadedState?: Partial<RootState>): Store<RootState> =>
