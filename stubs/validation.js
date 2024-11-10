@@ -1,10 +1,11 @@
-const { body } = require('express-validator');
+const requiredFields = (fields) => (req, res, next) => {
+  for (const fieldName of fields) {
+    if (!req.body[fieldName]) {
+      throw new Error(`Field ${fieldName} does't set`);
+    }
+  }
 
-const userCreateValidation = [
-  body('name', 'Нужно ввести имя пользователя').trim().isLength({ min: 1 }).isString(),
-  body('email', 'Неверный формат почты').trim().isLength({ min: 1 }).isEmail(),
-  body('password', 'Пароль обязателен').trim().isLength({ min: 1 }),
-  body('type_id', 'Тип пользователя обязателен').isLength({ min: 1 }).isNumeric(),
-];
+  next();
+};
 
-module.exports = { userCreateValidation };
+module.exports = { requiredFields };
