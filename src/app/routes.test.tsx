@@ -9,6 +9,14 @@ import { renderWithProviders } from '@/shared/test/utils';
 import App from './app';
 import { PageRoutes } from './routes';
 
+jest.mock('@/features/auth/api', () => {
+  const original = jest.requireActual('@/features/auth/api');
+  return {
+    ...original,
+    useCheckAuthQuery: jest.fn().mockReturnValue({ data: true, isLoading: false }),
+  };
+});
+
 describe('Routes', () => {
   it('app renders without crashing', async () => {
     const { container } = renderWithProviders(<App />);
@@ -52,5 +60,29 @@ describe('Routes', () => {
     await waitFor(() => {
       expect(container).toBeInTheDocument();
     });
+  });
+});
+
+it('renders the login page without crashing', async () => {
+  const { container } = renderWithProviders(
+    <MemoryRouter initialEntries={[pageRoutes.LOGIN]}>
+      <PageRoutes />
+    </MemoryRouter>,
+  );
+
+  await waitFor(() => {
+    expect(container).toBeInTheDocument();
+  });
+});
+
+it('renders the register page without crashing', async () => {
+  const { container } = renderWithProviders(
+    <MemoryRouter initialEntries={[pageRoutes.REGISTER]}>
+      <PageRoutes />
+    </MemoryRouter>,
+  );
+
+  await waitFor(() => {
+    expect(container).toBeInTheDocument();
   });
 });

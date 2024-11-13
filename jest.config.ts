@@ -6,6 +6,7 @@ export default {
     '!./src/app/index.tsx',
     '!./src/shared/types/*',
     '!./src/widgets/users-table/model/*',
+    '!./src/__data__',
   ],
   coverageDirectory: '<rootDir>/reports/coverage',
   coverageProvider: 'v8',

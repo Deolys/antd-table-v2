@@ -28,6 +28,7 @@ export function RegisterForm(): JSX.Element {
     const res = await register({ name, email, password, type_id: 5, description });
     if (res.error || !res.data) {
       showErrorMessage(t('messages.error.register'));
+      return;
     }
     if ('token' in res.data) {
       window.localStorage.setItem('token', res.data.token);
