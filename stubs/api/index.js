@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const UsersController = require('../controllers/users.js');
 const AuthController = require('../controllers/auth.js');
 
-const handleValidationErrors = require('../middlewares/validation-errors.js');
 const { requiredFields } = require('../validation.js');
 const checkAuth = require('../middlewares/check-auth.js');
 const checkPermission = require('../middlewares/check-permission.js');
@@ -24,7 +23,6 @@ router.post(
   checkAuth,
   checkPermission,
   requiredFields(['email', 'password', 'name', 'type_id']),
-  handleValidationErrors,
   UsersController.createUser,
 );
 router.get('/users', checkAuth, UsersController.getUsers);
@@ -34,7 +32,6 @@ router.put(
   checkAuth,
   checkPermission,
   requiredFields(['email', 'name', 'type_id']),
-  handleValidationErrors,
   UsersController.updateUser,
 );
 router.delete('/users', checkAuth, checkPermission, UsersController.deleteUser);

@@ -25,6 +25,7 @@ export function LoginForm(): JSX.Element {
     const res = await login({ email, password });
     if (res.error || !res.data) {
       showErrorMessage(t('messages.error.login'));
+      return;
     }
     if ('token' in res.data) {
       window.localStorage.setItem('token', res.data.token);
