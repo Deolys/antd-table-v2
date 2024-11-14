@@ -1,7 +1,7 @@
 import { Button, Form, type FormProps, Input, Typography } from 'antd';
 import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { pageRoutes } from '@/shared/consts';
 import { showErrorMessage } from '@/shared/lib/utils';
@@ -18,7 +18,6 @@ type FieldType = {
 
 export function RegisterForm(): JSX.Element {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [register, { isLoading, isSuccess }] = useRegisterMutation();
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const { name, email, password, description } = values;
@@ -36,7 +35,7 @@ export function RegisterForm(): JSX.Element {
   };
 
   if (isSuccess) {
-    navigate(pageRoutes.MAIN);
+    return <Navigate to={pageRoutes.MAIN} />;
   }
 
   return (

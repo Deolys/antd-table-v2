@@ -11,3 +11,28 @@ export const mockOptions = [
   { label: 'Admin', value: 'admin', display: 'Admin' },
   { label: 'User', value: 'User', display: 'User' },
 ];
+
+export const breakpoints = [
+  {
+    name: 'Все true',
+    values: {
+      xs: true,
+      sm: true,
+      md: true,
+      lg: true,
+      xl: true,
+      xxl: true,
+    },
+  },
+  {
+    name: 'Все false',
+    values: {
+      xs: false,
+      sm: false,
+      md: false,
+      lg: false,
+      xl: false,
+      xxl: false,
+    },
+  },
+];

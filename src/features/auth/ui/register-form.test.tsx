@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { MemoryRouter, Navigate } from 'react-router-dom';
 
 import { showErrorMessage } from '@/shared/lib/utils';
 import { renderWithProviders } from '@/shared/test/utils';
@@ -20,7 +20,7 @@ jest.mock('react-router-dom', () => {
   const original = jest.requireActual('react-router-dom');
   return {
     ...original,
-    useNavigate: jest.fn(),
+    Navigate: jest.fn(),
   };
 });
 
@@ -34,7 +34,7 @@ jest.mock('@/shared/lib/utils', () => {
 
 describe('RegisterForm', () => {
   const mockRegister = jest.fn();
-  const mockNavigate = jest.fn();
+  const mockNavigate = <div data-testid={'navigate'} />;
   const mockShowErrorMessage = jest.fn();
 
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe('RegisterForm', () => {
       mockRegister,
       { isLoading: false, isSuccess: false },
     ]);
-    (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+    (Navigate as jest.Mock).mockReturnValue(mockNavigate);
     (showErrorMessage as jest.Mock).mockReturnValue(mockShowErrorMessage);
   });
 
@@ -115,16 +115,8 @@ describe('RegisterForm', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.change(screen.getByLabelText('Имя'), { target: { value: 'Test User' } });
-    fireEvent.change(screen.getByLabelText('Почта'), { target: { value: 'test@example.com' } });
-    fireEvent.change(screen.getByLabelText('Пароль'), { target: { value: 'password' } });
-    fireEvent.change(screen.getByLabelText('Подтвердите пароль'), {
-      target: { value: 'password' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: 'Зарегистрироваться' }));
-
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/antd-table-v2');
+      expect(screen.getByTestId('navigate')).toBeInTheDocument();
     });
   });
 

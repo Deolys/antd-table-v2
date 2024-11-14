@@ -37,10 +37,10 @@ export const PageRoutes = (): JSX.Element => {
 };
 
 function PrivateRoute({ children }: PropsWithChildren): ReactNode {
-  const { data: user, isLoading } = useCheckAuthQuery();
+  const { data: user, isFetching } = useCheckAuthQuery();
   const location = useLocation();
 
-  if (isLoading) {
+  if (isFetching) {
     return (
       <Flex justify="center" align="center" style={{ height: '100vh' }}>
         <Spin size="large" />

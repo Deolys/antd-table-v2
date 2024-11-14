@@ -1,13 +1,17 @@
 import { waitFor } from '@testing-library/react';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { ErrorPage } from '@/pages/error-page';
 import { pageRoutes } from '@/shared/consts';
+import { breakpoints } from '@/shared/test/__mocks__/mock-data';
 import { renderWithProviders } from '@/shared/test/utils';
 
 import App from './app';
 import { PageRoutes } from './routes';
+
+jest.mock('antd/lib/grid/hooks/useBreakpoint', () => jest.fn());
 
 jest.mock('@/features/auth/api', () => {
   const original = jest.requireActual('@/features/auth/api');
@@ -17,72 +21,92 @@ jest.mock('@/features/auth/api', () => {
   };
 });
 
-describe('Routes', () => {
-  it('app renders without crashing', async () => {
-    const { container } = renderWithProviders(<App />);
-
-    await waitFor(() => {
-      expect(container).toBeInTheDocument();
+breakpoints.forEach((breakpoint) => {
+  describe(`Routes with sreen: ${breakpoint.name}`, () => {
+    beforeEach(() => {
+      (useBreakpoint as jest.Mock).mockReturnValue({
+        ...breakpoint.values,
+      });
     });
-  });
 
-  it('renders the main page without crashing', async () => {
-    const { container } = renderWithProviders(
-      <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
-        <PageRoutes />
-      </MemoryRouter>,
-    );
+    it('app renders without crashing', async () => {
+      const { container } = renderWithProviders(<App />);
 
-    await waitFor(() => {
-      expect(container).toBeInTheDocument();
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
     });
-  });
 
-  it('renders the user form page without crashing', async () => {
-    const { container } = renderWithProviders(
-      <MemoryRouter initialEntries={[pageRoutes.NEW_USER_FORM]}>
-        <PageRoutes />
-      </MemoryRouter>,
-    );
+    it('renders the main page without crashing', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
+          <PageRoutes />
+        </MemoryRouter>,
+      );
 
-    await waitFor(() => {
-      expect(container).toBeInTheDocument();
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
     });
-  });
 
-  it('renders the error page without crashing', async () => {
-    const { container } = renderWithProviders(
-      <MemoryRouter>
-        <ErrorPage />
-      </MemoryRouter>,
-    );
+    it('renders the main page without crashing different screens', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
+          <PageRoutes />
+        </MemoryRouter>,
+      );
 
-    await waitFor(() => {
-      expect(container).toBeInTheDocument();
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
     });
-  });
-});
 
-it('renders the login page without crashing', async () => {
-  const { container } = renderWithProviders(
-    <MemoryRouter initialEntries={[pageRoutes.LOGIN]}>
-      <PageRoutes />
-    </MemoryRouter>,
-  );
+    it('renders the user form page without crashing', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter initialEntries={[pageRoutes.NEW_USER_FORM]}>
+          <PageRoutes />
+        </MemoryRouter>,
+      );
 
-  await waitFor(() => {
-    expect(container).toBeInTheDocument();
-  });
-});
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
+    });
 
-it('renders the register page without crashing', async () => {
-  const { container } = renderWithProviders(
-    <MemoryRouter initialEntries={[pageRoutes.REGISTER]}>
-      <PageRoutes />
-    </MemoryRouter>,
-  );
+    it('renders the error page without crashing', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter>
+          <ErrorPage />
+        </MemoryRouter>,
+      );
 
-  await waitFor(() => {
-    expect(container).toBeInTheDocument();
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
+    });
+
+    it('renders the login page without crashing', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter initialEntries={[pageRoutes.LOGIN]}>
+          <PageRoutes />
+        </MemoryRouter>,
+      );
+
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
+    });
+
+    it('renders the register page without crashing', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter initialEntries={[pageRoutes.REGISTER]}>
+          <PageRoutes />
+        </MemoryRouter>,
+      );
+
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
+    });
   });
 });
