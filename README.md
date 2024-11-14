@@ -43,4 +43,4 @@ npm start
 
 #### Ссылки:
 
-- [Макет Figma](https://www.figma.com/file/ExampleLink)
+- [Макет Figma](https://www.figma.com/design/dfdfLuWskTXr1jxJaqQCSA/Untitled?node-id=0-1&t=1qLEJtXFCe2jPd4e-1)
