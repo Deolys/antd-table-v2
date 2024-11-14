@@ -1,4 +1,4 @@
-## Antd Table V2 - улучшенная версия [приложения для управления пользователями](https://github.com/Deolys/antd-table)
+## Antd Table V2 - улучшенная версия [приложения для управления данными пользователей](https://github.com/Deolys/antd-table)
 
 [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
 [![Redux-Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?logo=redux&logoColor=fff)](#)
@@ -12,9 +12,13 @@
 [![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)](#)
 [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white)](#)
 [![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff)](#)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white)](#)
 
-### MVP2 Задачи:
+### Задачи:
 
+- Регистрация
+- Авторизация
+- Приватные маршруты
 - Добавление пользователей в таблицу
 - Редактирование пользователей
 - Валидация формы пользователя
@@ -23,7 +27,7 @@
 - Пагинация для таблицы
 - Панель с фильтрами для поиска записей (по почте, имени, типу, дате последнего визита)
 - Сообщения о статусе запросов
-- Интернационализация
+- Интернационализация (i18n)
 
 ### Установка зависимостей
 
