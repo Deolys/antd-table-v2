@@ -91,9 +91,9 @@ describe('RegisterForm', () => {
 
     fireEvent.change(screen.getByLabelText('Имя'), { target: { value: 'Test User' } });
     fireEvent.change(screen.getByLabelText('Почта'), { target: { value: 'test@example.com' } });
-    fireEvent.change(screen.getByLabelText('Пароль'), { target: { value: 'password' } });
+    fireEvent.change(screen.getByLabelText('Пароль'), { target: { value: 'Password1@' } });
     fireEvent.change(screen.getByLabelText('Подтвердите пароль'), {
-      target: { value: 'password' },
+      target: { value: 'Password1@' },
     });
     fireEvent.click(screen.getByRole('button', { name: 'Зарегистрироваться' }));
 
