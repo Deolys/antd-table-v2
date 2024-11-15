@@ -1,16 +1,19 @@
 import { Flex, Form, Input, Select, Typography } from 'antd';
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
-import React, { type JSX } from 'react';
+import React, { type JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { rulesValidator } from '@/features/auth/lib/utils';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
-import { FormSubmitButton } from '@/shared/ui';
+import { signUpPasswordRules } from '@/shared/consts';
+import { FormSubmitButton, PasswordStrength } from '@/shared/ui';
 
 import { useUserForm } from '../lib/hooks';
 import { UserFormSkeleton } from './user-form.skeleton';
 
 export function UserForm(): JSX.Element {
   const { t } = useTranslation();
+  const [passwordValue, setPasswordValue] = useState('');
   const { user, isLoading, onFinish } = useUserForm();
   const { options } = useUserTypeSelect();
   const [form] = Form.useForm();
@@ -62,10 +65,25 @@ export function UserForm(): JSX.Element {
       <Form.Item
         label={t('form.label.userPass')}
         name="password"
-        rules={[{ required: !user, message: t('form.validation.userPass') }]}
+        rules={[
+          { required: !user, message: t('form.validation.userPass') },
+          () => ({
+            validator(_, value) {
+              setPasswordValue(value);
+              if (user && !value) {
+                return Promise.resolve();
+              }
+              const result = rulesValidator(signUpPasswordRules, value);
+              return new Promise((resolve, reject) =>
+                result.success ? resolve('') : reject(t(result.message || '')),
+              );
+            },
+          }),
+        ]}
       >
         <Input.Password placeholder={t('form.placeholder.userPass')} />
       </Form.Item>
+      <PasswordStrength password={passwordValue} />
       <Form.Item
         label={t('form.label.type')}
         name="type_id"

@@ -63,7 +63,12 @@
       "maxLength400": "The maximum number of characters is 400",
       "incorrectEmail": "Incorrect email format",
       "name": "Fill the name field",
-      "passwordsMatch": "Passwords must match"
+      "passwordsMatch": "Passwords must match",
+      "passwordLength": "Use at least 8 characters",
+      "passwordUppercase": "Use at least one uppercase letter",
+      "passwordLowercase": "Use at least one lowercase letter",
+      "passwordDigit": "Use at least one digit",
+      "passwordSpecialCharacter": "Use at least one special character"
     },
     "dontHaveAccount": "Don't have an account?",
     "login": "Login",

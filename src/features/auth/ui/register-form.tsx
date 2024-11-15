@@ -1,12 +1,14 @@
 import { Button, Form, type FormProps, Input, Typography } from 'antd';
-import React, { type JSX } from 'react';
+import React, { type JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate } from 'react-router-dom';
 
-import { pageRoutes } from '@/shared/consts';
+import { pageRoutes, signUpPasswordRules } from '@/shared/consts';
 import { showErrorMessage } from '@/shared/lib/utils';
+import { PasswordStrength } from '@/shared/ui';
 
 import { useRegisterMutation } from '../api';
+import { rulesValidator } from '../lib/utils';
 
 type FieldType = {
   name?: string;
@@ -19,6 +21,8 @@ type FieldType = {
 export function RegisterForm(): JSX.Element {
   const { t } = useTranslation();
   const [register, { isLoading, isSuccess }] = useRegisterMutation();
+  const [passwordValue, setPasswordValue] = useState('');
+
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     const { name, email, password, description } = values;
     if (!name || !email || !password) {
@@ -75,12 +79,24 @@ export function RegisterForm(): JSX.Element {
         <Form.Item<FieldType>
           label={t('form.label.password')}
           name="password"
-          rules={[{ required: true, message: t('form.validation.userPass') }]}
+          rules={[
+            { required: true, message: t('form.validation.userPass') },
+            () => ({
+              validator(_, value) {
+                setPasswordValue(value);
+                const result = rulesValidator(signUpPasswordRules, value);
+                return new Promise((resolve, reject) =>
+                  result.success ? resolve('') : reject(t(result.message || '')),
+                );
+              },
+            }),
+          ]}
           validateDebounce={700}
           hasFeedback
         >
           <Input.Password data-testid="password" />
         </Form.Item>
+        <PasswordStrength password={passwordValue} />
         <Form.Item<FieldType>
           label={t('form.label.confirmPassword')}
           name="confirmPassword"
