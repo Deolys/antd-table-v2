@@ -27,6 +27,7 @@ export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObj
       { title: t('user.email'), dataIndex: 'email', key: 'email', width: 150, ellipsis: true },
       { title: t('user.name'), dataIndex: 'name', key: 'name', width: 150 },
       { title: t('user.typeName'), dataIndex: 'type', key: 'type', width: 150 },
+      { title: t('user.project'), dataIndex: 'project', key: 'project', width: 150 },
       {
         title: t('user.lastVisitDate'),
         dataIndex: 'last_visit_date',

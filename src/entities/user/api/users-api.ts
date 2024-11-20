@@ -17,11 +17,12 @@ interface Result {
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getFilteredUsers: builder.query<FilterResponse, FilterQuery>({
-      query: ({ email, name, type_id, dateRange, skip, limit }) => {
+      query: ({ email, name, type_id, project, dateRange, skip, limit }) => {
         const queryObject = {
           email: email || '',
           name: name || '',
           type_id: type_id ? `${type_id}` : '',
+          project: project || '',
           dateRange: dateRange?.length ? JSON.stringify(dateRange) : '',
           skip: `${skip}`,
           limit: `${limit}`,

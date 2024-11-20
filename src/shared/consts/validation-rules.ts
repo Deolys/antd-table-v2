@@ -34,3 +34,6 @@ export const signUpPasswordRules = [
     message: 'form.validation.passwordSpecialCharacter',
   },
 ];
+
+export const USER_TYPE_ID = 1;
+export const ADMIN_TYPE_ID = 2;

@@ -6,14 +6,25 @@ const bcrypt = require('bcrypt');
 const User = require('../schemas/user.js');
 
 const SECRET_ENCRYPTION_KEY = 'keyForEncryption';
+const BASE_PROJECT = 'antd-table-v2';
+const ALLOWED_TYPES = [2, 3];
 
 const register = async (req, res) => {
   checkConnection(db);
 
-  const { name, email, password, type_id, description } = req.body;
+  const projectKey = req.headers.projectkey;
+  const project = projectKey.split('_')[0];
+  const { name, email, password, description, map_data } = req.body;
   const lastVisitDate = new Date().toISOString().split('T')[0];
 
   try {
+    const duplicate = await User.findOne({ email, project });
+    if (duplicate) {
+      res.status(403).json({
+        message: 'User already exists',
+      });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
@@ -21,8 +32,10 @@ const register = async (req, res) => {
       name,
       email,
       password: hash,
-      type_id,
+      type_id: 1,
+      project,
       description,
+      map_data,
       last_visit_date: lastVisitDate,
     });
     const user = await doc.save();
@@ -55,7 +68,15 @@ const login = async (req, res) => {
 
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    const projectKey = req.headers.projectkey;
+    const project = projectKey.split('_')[0];
+
+    let user;
+    if (project === BASE_PROJECT) {
+      user = await User.findOne({ email, type_id: { $in: ALLOWED_TYPES } });
+    } else {
+      user = await User.findOne({ email, project });
+    }
 
     if (!user) {
       return res.status(401).json({

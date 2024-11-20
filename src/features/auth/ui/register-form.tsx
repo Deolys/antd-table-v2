@@ -28,7 +28,7 @@ export function RegisterForm(): JSX.Element {
     if (!name || !email || !password) {
       return;
     }
-    const res = await register({ name, email, password, type_id: 5, description });
+    const res = await register({ name, email, password, type_id: 1, description });
     if (res.error || !res.data) {
       showErrorMessage(t('messages.error.register'));
       return;

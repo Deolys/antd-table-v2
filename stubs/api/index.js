@@ -8,6 +8,8 @@ const AuthController = require('../controllers/auth.js');
 const { requiredFields } = require('../validation.js');
 const checkAuth = require('../middlewares/check-auth.js');
 const checkPermission = require('../middlewares/check-permission.js');
+const checkProjectKey = require('../middlewares/check-project-key.js')
+const setProjectQuery = require('../middlewares/set-project-query.js')
 
 dotenv.config();
 
@@ -20,26 +22,28 @@ app.use(express.json());
 
 router.post(
   '/users',
+  checkProjectKey,
   checkAuth,
   checkPermission,
-  requiredFields(['email', 'password', 'name', 'type_id']),
+  requiredFields(['email', 'password', 'name']),
   UsersController.createUser,
 );
-router.get('/users', checkAuth, UsersController.getUsers);
-router.get('/users/:id', checkAuth, UsersController.getUserById);
+router.get('/users', checkProjectKey, checkAuth, setProjectQuery, UsersController.getUsers);
+router.get('/users/:id', checkProjectKey, checkAuth, setProjectQuery, UsersController.getUserById);
 router.put(
   '/users/:id',
+  checkProjectKey,
   checkAuth,
   checkPermission,
-  requiredFields(['email', 'name', 'type_id']),
+  requiredFields(['email', 'name']),
   UsersController.updateUser,
 );
-router.delete('/users', checkAuth, checkPermission, UsersController.deleteUser);
-router.get('/user-types', checkAuth, UsersController.getUserTypes);
+router.delete('/users', checkProjectKey, checkAuth, checkPermission, UsersController.deleteUser);
+router.get('/user-types', checkProjectKey, checkAuth, UsersController.getUserTypes);
 
-router.post('/auth/login', requiredFields(['email', 'password']), AuthController.login);
-router.post('/auth/register', requiredFields(['email', 'password']), AuthController.register);
-router.get('/auth/check', checkAuth, AuthController.getAuthorized);
+router.post('/auth/login', checkProjectKey, requiredFields(['email', 'password']), AuthController.login);
+router.post('/auth/register', checkProjectKey, requiredFields(['email', 'password']), AuthController.register);
+router.get('/auth/check', checkProjectKey, checkAuth, AuthController.getAuthorized);
 
 app.use('/api', router);
 

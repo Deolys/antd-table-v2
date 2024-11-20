@@ -29,7 +29,7 @@ export function UsersTable(): JSX.Element {
         columnWidth: 50,
         ...rowSelection,
       }}
-      scroll={{ x: 1148, y: document.documentElement.clientHeight * 0.95 - 208 }}
+      scroll={{ x: 1298, y: document.documentElement.clientHeight * 0.95 - 208 }}
       onChange={handleTableChange}
     />
   );

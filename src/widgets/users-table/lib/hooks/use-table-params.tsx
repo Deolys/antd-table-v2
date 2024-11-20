@@ -64,6 +64,7 @@ export function useTableParams(): TableParamsHook {
     email: searchParams.get('email'),
     name: searchParams.get('name'),
     type_id: +searchParams.get('type_id'),
+    project: searchParams.get('project'),
     dateRange: searchParams.get('dateRange')?.split(',') || [
       dayjs(FILTER_START_DATE).format(DATE_FORMAT),
       dayjs().format(DATE_FORMAT),

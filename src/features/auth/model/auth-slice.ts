@@ -25,6 +25,8 @@ const authSlice = createSlice({
   selectors: {
     selectIsAuth: (state) => Boolean(state.data),
     selectAuthLoading: (state) => state.status === 'loading',
+    selectTypeId: (state) => state.data?.type_id,
+    selectProject: (state) => state.data?.project,
   },
   extraReducers: (builder) => {
     builder
@@ -51,6 +53,18 @@ const authSlice = createSlice({
       .addMatcher(authApi.endpoints.register.matchRejected, (state) => {
         state.data = null;
         state.status = 'error';
+      })
+      .addMatcher(authApi.endpoints.checkAuth.matchRejected, (state) => {
+        state.data = null;
+        state.status = 'error';
+      })
+      .addMatcher(authApi.endpoints.checkAuth.matchPending, (state) => {
+        state.data = null;
+        state.status = 'loading';
+      })
+      .addMatcher(authApi.endpoints.checkAuth.matchFulfilled, (state, { payload }) => {
+        state.data = payload;
+        state.status = 'success';
       });
   },
 });
@@ -58,5 +72,5 @@ const authSlice = createSlice({
 export const {
   reducer: authReducer,
   actions: { logout },
-  selectors: { selectIsAuth, selectAuthLoading },
+  selectors: { selectIsAuth, selectAuthLoading, selectTypeId, selectProject },
 } = authSlice;
