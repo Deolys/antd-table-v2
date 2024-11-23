@@ -120,6 +120,9 @@ export function UserForm(): JSX.Element {
       >
         <Input.TextArea placeholder={t('form.placeholder.description')} />
       </Form.Item>
+      <Form.Item label={t('form.label.data')} name="map_data">
+        <Input.TextArea placeholder={t('form.placeholder.data')} />
+      </Form.Item>
       <Flex justify="end">
         <FormSubmitButton form={form}>{t('form.button.send')}</FormSubmitButton>
       </Flex>

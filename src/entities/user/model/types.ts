@@ -14,7 +14,7 @@ export type User = Omit<UserType, 'allow_edit' | 'id'> & {
   type?: string;
   project?: string;
   description?: string;
-  map_data?: Map<string, string>;
+  map_data?: Map<string, string> | string;
   last_visit_date: string;
 };
 
