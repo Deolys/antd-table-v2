@@ -1,3 +1,7 @@
+import parserBabel from 'prettier/plugins/babel';
+import parserEstree from 'prettier/plugins/estree';
+import prettier from 'prettier/standalone';
+
 import { baseApi } from '@/shared/api';
 
 import type {
@@ -17,11 +21,12 @@ interface Result {
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getFilteredUsers: builder.query<FilterResponse, FilterQuery>({
-      query: ({ email, name, type_id, dateRange, skip, limit }) => {
+      query: ({ email, name, type_id, project, dateRange, skip, limit }) => {
         const queryObject = {
           email: email || '',
           name: name || '',
           type_id: type_id ? `${type_id}` : '',
+          project: project || '',
           dateRange: dateRange?.length ? JSON.stringify(dateRange) : '',
           skip: `${skip}`,
           limit: `${limit}`,
@@ -40,6 +45,23 @@ export const usersApi = baseApi.injectEndpoints({
     getUserById: builder.query<User, string>({
       query: (id) => `/users/${id}`,
       providesTags: (result, error, id) => [{ type: 'user' as const, id }],
+      transformResponse: async (response: User) => {
+        if (response.map_data) {
+          try {
+            const formattedMapData = await prettier.format(
+              JSON.stringify(response.map_data, null, 2),
+              {
+                parser: 'json',
+                plugins: [parserBabel, parserEstree],
+              },
+            );
+            response.map_data = formattedMapData;
+          } catch (error) {
+            console.error('Ошибка форматирования:', error);
+          }
+        }
+        return response;
+      },
     }),
 
     createUser: builder.mutation<User, CreateUser>({

@@ -45,6 +45,9 @@ function FiltersForm(): JSX.Element {
           options={options}
         />
       </Form.Item>
+      <Form.Item label={t('user.project')} name="project">
+        <Input allowClear placeholder={t('form.placeholder.project')} />
+      </Form.Item>
       <Form.Item
         label={
           <Flex gap={96}>

@@ -23,7 +23,8 @@
     "add": "Add a user",
     "delete": "Delete selected ones",
     "typeName": "Type",
-    "description": "Description"
+    "description": "Description",
+    "project": "Project"
   },
   "form": {
     "createUserTitle": "Create a user",
@@ -39,14 +40,17 @@
       "email": "Email",
       "password": "Password",
       "name": "Name",
-      "confirmPassword": "Confirm the password"
+      "confirmPassword": "Confirm the password",
+      "data": "Data"
     },
     "placeholder": {
       "userName": "Enter the user's name",
       "userEmail": "Enter the user's email",
       "userPass": "Enter the user's password",
       "type": "Select the user type",
-      "description": "Description"
+      "description": "Description",
+      "project": "Enter the project name",
+      "data": "User's data"
     },
     "button": {
       "search": "Search",
@@ -68,7 +72,8 @@
       "passwordUppercase": "Use at least one uppercase letter",
       "passwordLowercase": "Use at least one lowercase letter",
       "passwordDigit": "Use at least one digit",
-      "passwordSpecialCharacter": "Use at least one special character"
+      "passwordSpecialCharacter": "Use at least one special character",
+      "project": "Fill the project field"
     },
     "dontHaveAccount": "Don't have an account?",
     "login": "Login",

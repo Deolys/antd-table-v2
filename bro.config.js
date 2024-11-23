@@ -26,6 +26,6 @@ module.exports = {
     },
   },
   config: {
-    'antd-table-v2.api': '/api',
+    'antd-table-v2.api': 'https://antd-table-v2-backend.onrender.com/api',
   },
 };

@@ -3,9 +3,11 @@ import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { selectProject, selectTypeId } from '@/features/auth';
 import { rulesValidator } from '@/features/auth/lib/utils';
 import { useUserTypeSelect } from '@/features/user-type-select/lib/hooks';
-import { signUpPasswordRules } from '@/shared/consts';
+import { ADMIN_TYPE_ID, USER_TYPE_ID, signUpPasswordRules } from '@/shared/consts';
+import { useAppSelector } from '@/shared/lib/hooks';
 import { FormSubmitButton, PasswordStrength } from '@/shared/ui';
 
 import { useUserForm } from '../lib/hooks';
@@ -18,6 +20,9 @@ export function UserForm(): JSX.Element {
   const { options } = useUserTypeSelect();
   const [form] = Form.useForm();
   const screen = useBreakpoint();
+  const typeId = useAppSelector(selectTypeId);
+  const project = useAppSelector(selectProject);
+  const isAdmin = typeId === ADMIN_TYPE_ID;
 
   if (isLoading) {
     return <UserFormSkeleton />;
@@ -34,7 +39,7 @@ export function UserForm(): JSX.Element {
         border: '1px solid #52618d',
       }}
       onFinish={onFinish}
-      initialValues={user?.name ? user : undefined}
+      initialValues={user?.name ? user : { type_id: USER_TYPE_ID, project }}
       layout="vertical"
     >
       <Typography.Title level={4} style={{ textAlign: 'center', marginBottom: 20 }}>
@@ -90,6 +95,7 @@ export function UserForm(): JSX.Element {
         rules={[{ required: true, message: t('form.validation.type') }]}
       >
         <Select
+          disabled={!isAdmin}
           allowClear
           showSearch
           placeholder={t('form.placeholder.type')}
@@ -101,11 +107,21 @@ export function UserForm(): JSX.Element {
         />
       </Form.Item>
       <Form.Item
+        label={t('user.project')}
+        name="project"
+        rules={[{ required: true, message: t('form.validation.project') }]}
+      >
+        <Input allowClear disabled={!isAdmin} placeholder={t('form.placeholder.project')} />
+      </Form.Item>
+      <Form.Item
         label={t('form.label.aboutMe')}
         name="description"
         rules={[{ max: 400, message: t('form.validation.maxLength400') }]}
       >
         <Input.TextArea placeholder={t('form.placeholder.description')} />
+      </Form.Item>
+      <Form.Item label={t('form.label.data')} name="map_data">
+        <Input.TextArea placeholder={t('form.placeholder.data')} />
       </Form.Item>
       <Flex justify="end">
         <FormSubmitButton form={form}>{t('form.button.send')}</FormSubmitButton>

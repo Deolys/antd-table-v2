@@ -16,6 +16,7 @@ export function useFilterForm(): FilterFormHook {
     email: searchParams.get('email') || DEFAULT_FILTER_OBJECT.email,
     name: searchParams.get('name') || DEFAULT_FILTER_OBJECT.name,
     type_id: +searchParams.get('type_id') || DEFAULT_FILTER_OBJECT.type_id,
+    project: searchParams.get('project') || DEFAULT_FILTER_OBJECT.project,
     dateRange: searchParams.get('dateRange')?.split(',') || DEFAULT_FILTER_OBJECT.dateRange,
   };
 

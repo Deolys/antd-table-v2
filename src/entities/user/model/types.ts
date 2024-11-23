@@ -12,11 +12,13 @@ export type User = Omit<UserType, 'allow_edit' | 'id'> & {
   password?: string;
   type_id: number;
   type?: string;
+  project?: string;
   description?: string;
+  map_data?: Map<string, string> | string;
   last_visit_date: string;
 };
 
-export type UpdateUser = Omit<User, 'last_visit_date' | 'type'>;
+export type UpdateUser = Omit<User, 'last_visit_date' | 'type'> & { type_id?: number };
 
 export type CreateUser = Omit<UpdateUser, '_id'>;
 
@@ -24,6 +26,7 @@ export interface UsersFilters {
   email?: string;
   name?: string;
   type_id?: number;
+  project?: string;
   dateRange: string[] | Dayjs[];
 }
 

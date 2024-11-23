@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { ErrorPage } from '@/pages/error-page';
 import { pageRoutes } from '@/shared/consts';
-import { breakpoints } from '@/shared/test/__mocks__/mock-data';
+import { breakpoints, userMock } from '@/shared/test/__mocks__/mock-data';
 import { renderWithProviders } from '@/shared/test/utils';
 
 import App from './app';
@@ -42,6 +42,14 @@ breakpoints.forEach((breakpoint) => {
         <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
           <PageRoutes />
         </MemoryRouter>,
+        {
+          preloadedState: {
+            auth: {
+              data: userMock,
+              status: 'success',
+            },
+          },
+        },
       );
 
       await waitFor(() => {
@@ -54,6 +62,14 @@ breakpoints.forEach((breakpoint) => {
         <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
           <PageRoutes />
         </MemoryRouter>,
+        {
+          preloadedState: {
+            auth: {
+              data: userMock,
+              status: 'success',
+            },
+          },
+        },
       );
 
       await waitFor(() => {
@@ -66,6 +82,14 @@ breakpoints.forEach((breakpoint) => {
         <MemoryRouter initialEntries={[pageRoutes.NEW_USER_FORM]}>
           <PageRoutes />
         </MemoryRouter>,
+        {
+          preloadedState: {
+            auth: {
+              data: userMock,
+              status: 'success',
+            },
+          },
+        },
       );
 
       await waitFor(() => {
@@ -90,6 +114,14 @@ breakpoints.forEach((breakpoint) => {
         <MemoryRouter initialEntries={[pageRoutes.LOGIN]}>
           <PageRoutes />
         </MemoryRouter>,
+        {
+          preloadedState: {
+            auth: {
+              data: undefined,
+              status: 'success',
+            },
+          },
+        },
       );
 
       await waitFor(() => {
@@ -102,6 +134,14 @@ breakpoints.forEach((breakpoint) => {
         <MemoryRouter initialEntries={[pageRoutes.REGISTER]}>
           <PageRoutes />
         </MemoryRouter>,
+        {
+          preloadedState: {
+            auth: {
+              data: undefined,
+              status: 'success',
+            },
+          },
+        },
       );
 
       await waitFor(() => {

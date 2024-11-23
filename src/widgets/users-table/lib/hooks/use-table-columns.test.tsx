@@ -31,14 +31,15 @@ describe('useTableColumns', () => {
   it('should render columns with correct headers', () => {
     const columns = useTableColumns();
 
-    expect(columns).toHaveLength(7);
+    expect(columns).toHaveLength(8);
     expect(columns[0].title).toBe('№');
     expect(columns[1].title).toBe('user.email');
     expect(columns[2].title).toBe('user.name');
     expect(columns[3].title).toBe('user.typeName');
-    expect(columns[4].title).toBe('user.lastVisitDate');
-    expect(columns[5].title).toBe('user.description');
-    expect(columns[6].title).toBe('');
+    expect(columns[4].title).toBe('user.project');
+    expect(columns[5].title).toBe('user.lastVisitDate');
+    expect(columns[6].title).toBe('user.description');
+    expect(columns[7].title).toBe('');
   });
 
   it('should render correct index in the first column', () => {
@@ -57,7 +58,7 @@ describe('useTableColumns', () => {
 
   it('should format date correctly in the last visit date column', () => {
     const columns = useTableColumns();
-    const renderDate = columns[4].render as (date: string) => React.ReactNode;
+    const renderDate = columns[5].render as (date: string) => React.ReactNode;
     const dateElement = renderDate('2023-10-10');
 
     render(<div>{dateElement}</div>);
@@ -67,7 +68,7 @@ describe('useTableColumns', () => {
 
   it('should render edit button with correct attributes', () => {
     const columns = useTableColumns();
-    const renderAction = columns[6].render as (
+    const renderAction = columns[7].render as (
       text: string | number | undefined,
       record: { _id: string },
     ) => React.ReactNode;

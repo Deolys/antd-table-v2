@@ -5,8 +5,15 @@ const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
   checkConnection(db);
-
-  const { name, email, password, description, type_id } = req.body;
+  const {
+    name,
+    email,
+    password,
+    description,
+    type_id = 1,
+    project = req.headers.project.split('_')[0],
+    map_data
+  } = req.body;
   const lastVisitDate = new Date().toISOString().split('T')[0];
 
   try {
@@ -18,7 +25,9 @@ const createUser = async (req, res) => {
       email,
       password: hash,
       type_id,
+      project,
       description,
+      map_data,
       last_visit_date: lastVisitDate,
     });
     const newUser = await doc.save();
@@ -33,8 +42,7 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   checkConnection(db);
-
-  const { email, name, type_id, dateRange, skip = 0, limit = 10 } = req.query;
+  const { email, name, type_id, dateRange, project, skip = 0, limit = 10 } = req.query;
   let query = {};
 
   if (email) {
@@ -47,6 +55,10 @@ const getUsers = async (req, res) => {
 
   if (type_id) {
     query.type_id = parseInt(type_id);
+  }
+
+  if (project) {
+    query.project = project;
   }
 
   if (dateRange) {
@@ -82,9 +94,10 @@ const getUsers = async (req, res) => {
         $project: {
           _id: 1,
           email: 1,
-          // password: 1,
           name: 1,
+          project: 1,
           description: 1,
+          map_data: 1,
           last_visit_date: 1,
           type: '$type.name',
         },
@@ -105,12 +118,20 @@ const getUserById = async (req, res) => {
   checkConnection(db);
 
   const id = req.params.id;
+  const project = req.query.project;
+  
   if (id === 'new-id') {
     return res.status(200).json();
   }
 
   try {
-    const user = await User.findById(id);
+    let user;
+
+    if (project) {
+      user = await User.findOne({ _id: id, project: project });
+    } else {
+      user = await User.findById(id);
+    }
 
     if (user) {
       const { password, ...userData } = user._doc;
@@ -127,15 +148,25 @@ const updateUser = async (req, res) => {
   checkConnection(db);
 
   const id = req.params.id;
-  const { name, email, password, description, type_id } = req.body;
+  const { name, email, password, description, type_id, project, map_data } = req.body;
 
   try {
-    const updateData = { name, email, description, type_id };
+    const updateData = { name, email, description };
     if (password) {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
       updateData.password = hash;
     }
+    if (type_id) {
+      updateData.type_id = type_id;
+    }
+    if (project) {
+      updateData.project = project;
+    }
+    if (map_data) {
+      updateData.map_data = map_data;
+    }
+
     const user = await User.findByIdAndUpdate(id, updateData, { new: true });
 
     if (user) {

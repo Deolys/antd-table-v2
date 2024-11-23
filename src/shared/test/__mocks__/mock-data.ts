@@ -36,3 +36,11 @@ export const breakpoints = [
     },
   },
 ];
+
+export const userMock = {
+  _id: '1',
+  email: '1@mail.ru',
+  name: 'one',
+  type_id: 1,
+  last_visit_date: '2021-01-15T00:00:00',
+};
