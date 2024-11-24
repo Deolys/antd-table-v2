@@ -45,8 +45,8 @@ export const usersApi = baseApi.injectEndpoints({
     getUserById: builder.query<User, string>({
       query: (id) => `/users/${id}`,
       providesTags: (result, error, id) => [{ type: 'user' as const, id }],
-      transformResponse: async (response: User) => {
-        if (response.map_data) {
+      transformResponse: async (response?: User) => {
+        if (response?.map_data) {
           try {
             const formattedMapData = await prettier.format(
               JSON.stringify(response.map_data, null, 2),

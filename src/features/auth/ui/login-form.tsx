@@ -3,7 +3,7 @@ import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate } from 'react-router-dom';
 
-import { pageRoutes } from '@/shared/consts';
+import { URLs } from '@/__data__/urls';
 import { showErrorMessage } from '@/shared/lib/utils';
 
 import { useLoginMutation } from '../api';
@@ -32,7 +32,7 @@ export function LoginForm(): JSX.Element {
   };
 
   if (isSuccess) {
-    return <Navigate to={pageRoutes.MAIN} />;
+    return <Navigate to={URLs.baseUrl} />;
   }
 
   return (
@@ -69,7 +69,7 @@ export function LoginForm(): JSX.Element {
           {t('form.button.login')}
         </Button>
         {t('form.dontHaveAccount')}{' '}
-        <Link to={pageRoutes.REGISTER} style={{ color: '#1677ff' }}>
+        <Link to={URLs.ui.register} style={{ color: '#1677ff' }}>
           {t('form.button.register')}
         </Link>
       </Form>

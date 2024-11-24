@@ -1,6 +1,7 @@
 import { HttpResponse, http } from 'msw';
 
-import mockUserTypes from '../../../../stubs/mock-data/UserTypes.json';
+import mockUserTypes from '@/shared/test/__mocks__/UserTypes.json';
+
 import { mockUsers } from '../__mocks__/mock-data';
 
 export const handlers = [

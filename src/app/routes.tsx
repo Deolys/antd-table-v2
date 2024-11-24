@@ -2,6 +2,7 @@ import { Flex, Spin } from 'antd';
 import React, { type JSX, type ReactNode } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
+import { URLs } from '@/__data__/urls';
 import { selectAuthLoading, selectIsAuth } from '@/features/auth';
 import { useCheckAuthQuery } from '@/features/auth/api';
 import { LoginPage } from '@/pages/login-page';
@@ -9,7 +10,6 @@ import { MainPage } from '@/pages/main-page';
 import { NotFoundPage } from '@/pages/not-found-page';
 import { RegisterPage } from '@/pages/register-page';
 import { UserPage } from '@/pages/user-page';
-import { pageRoutes } from '@/shared/consts';
 import { useAppSelector } from '@/shared/lib/hooks';
 
 export const PageRoutes = (): JSX.Element => {
@@ -18,33 +18,33 @@ export const PageRoutes = (): JSX.Element => {
   return (
     <Routes>
       <Route
-        path={pageRoutes.MAIN}
+        path={URLs.baseUrl}
         element={
-          <PrivateRoute condition={false} redirect={pageRoutes.LOGIN}>
+          <PrivateRoute condition={false} redirect={URLs.ui.login}>
             <MainPage />
           </PrivateRoute>
         }
       />
       <Route
-        path={pageRoutes.USER_FORM_ID}
+        path={URLs.ui.userId.url}
         element={
-          <PrivateRoute condition={false} redirect={pageRoutes.LOGIN}>
+          <PrivateRoute condition={false} redirect={URLs.ui.login}>
             <UserPage />
           </PrivateRoute>
         }
       />
       <Route
-        path={pageRoutes.LOGIN}
+        path={URLs.ui.login}
         element={
-          <PrivateRoute condition={true} redirect={pageRoutes.MAIN}>
+          <PrivateRoute condition={true} redirect={URLs.baseUrl}>
             <LoginPage />
           </PrivateRoute>
         }
       />
       <Route
-        path={pageRoutes.REGISTER}
+        path={URLs.ui.register}
         element={
-          <PrivateRoute condition={true} redirect={pageRoutes.MAIN}>
+          <PrivateRoute condition={true} redirect={URLs.baseUrl}>
             <RegisterPage />
           </PrivateRoute>
         }

@@ -5,9 +5,10 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { URLs } from '@/__data__/urls';
 import editIcon from '@/assets/icons/edit-icon.svg';
 import type { User } from '@/entities/user';
-import { DATE_FORMAT, pageRoutes } from '@/shared/consts';
+import { DATE_FORMAT } from '@/shared/consts';
 
 export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObject> {
   const { t } = useTranslation();
@@ -58,7 +59,7 @@ export function useTableColumns(numberSkip: number = 0): TableColumnsType<AnyObj
               />
             }
             onClick={() =>
-              navigate(`${pageRoutes.USER_FORM}/${record._id}`, {
+              navigate(URLs.ui.userId.getUrl(record._id), {
                 state: { searchParams: `${searchParams}` },
               })
             }
