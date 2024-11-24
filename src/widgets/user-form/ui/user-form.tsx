@@ -41,6 +41,7 @@ export function UserForm(): JSX.Element {
       onFinish={onFinish}
       initialValues={user?.name ? user : { type_id: USER_TYPE_ID, project }}
       layout="vertical"
+      autoComplete="off"
     >
       <Typography.Title level={4} style={{ textAlign: 'center', marginBottom: 20 }}>
         {user ? t('form.editUserTitle') : t('form.createUserTitle')}
@@ -50,7 +51,7 @@ export function UserForm(): JSX.Element {
         name="name"
         rules={[{ required: true, message: t('form.validation.userName') }]}
       >
-        <Input allowClear placeholder={t('form.placeholder.userName')} />
+        <Input allowClear placeholder={t('form.placeholder.userName')} autoComplete="off" />
       </Form.Item>
       <Form.Item
         label={t('form.label.userEmail')}
@@ -65,7 +66,7 @@ export function UserForm(): JSX.Element {
         validateDebounce={700}
         hasFeedback
       >
-        <Input allowClear placeholder={t('form.placeholder.userEmail')} />
+        <Input allowClear placeholder={t('form.placeholder.userEmail')} autoComplete="off" />
       </Form.Item>
       <Form.Item
         label={t('form.label.userPass')}
@@ -86,7 +87,7 @@ export function UserForm(): JSX.Element {
           }),
         ]}
       >
-        <Input.Password placeholder={t('form.placeholder.userPass')} />
+        <Input.Password placeholder={t('form.placeholder.userPass')} autoComplete="off" />
       </Form.Item>
       <PasswordStrength password={passwordValue} />
       <Form.Item
@@ -111,17 +112,22 @@ export function UserForm(): JSX.Element {
         name="project"
         rules={[{ required: true, message: t('form.validation.project') }]}
       >
-        <Input allowClear disabled={!isAdmin} placeholder={t('form.placeholder.project')} />
+        <Input
+          allowClear
+          disabled={!isAdmin}
+          placeholder={t('form.placeholder.project')}
+          autoComplete="off"
+        />
       </Form.Item>
       <Form.Item
         label={t('form.label.aboutMe')}
         name="description"
         rules={[{ max: 400, message: t('form.validation.maxLength400') }]}
       >
-        <Input.TextArea placeholder={t('form.placeholder.description')} />
+        <Input.TextArea placeholder={t('form.placeholder.description')} autoComplete="off" />
       </Form.Item>
       <Form.Item label={t('form.label.data')} name="map_data">
-        <Input.TextArea placeholder={t('form.placeholder.data')} />
+        <Input.TextArea placeholder={t('form.placeholder.data')} autoComplete="off" />
       </Form.Item>
       <Flex justify="end">
         <FormSubmitButton form={form}>{t('form.button.send')}</FormSubmitButton>

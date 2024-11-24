@@ -13,11 +13,11 @@ export const URLs = {
         generatePath(`${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`, { id }),
     },
     login:
-      getNavigationValue('antd-table-v2.user.login') &&
-      `${baseUrl}${getNavigationValue('antd-table-v2.user.login')}`,
+      getNavigationValue('antd-table-v2.auth.login') &&
+      `${baseUrl}${getNavigationValue('antd-table-v2.auth.login')}`,
     register:
-      getNavigationValue('antd-table-v2.user.register') &&
-      `${baseUrl}${getNavigationValue('antd-table-v2.user.register')}`,
+      getNavigationValue('antd-table-v2.auth.register') &&
+      `${baseUrl}${getNavigationValue('antd-table-v2.auth.register')}`,
   },
   api: {
     main: getConfigValue('antd-table-v2.api'),
