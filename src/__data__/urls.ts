@@ -9,8 +9,8 @@ export const URLs = {
     userId: {
       url: `${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`,
       on: Boolean(getNavigationValue('antd-table-v2.user.id')),
-      getUrl: (userId: string) =>
-        generatePath(`${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`, { userId }),
+      getUrl: (id: string) =>
+        generatePath(`${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`, { id }),
     },
     login:
       getNavigationValue('antd-table-v2.user.login') &&

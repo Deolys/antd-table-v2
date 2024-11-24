@@ -3,7 +3,8 @@ import React, { type JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate } from 'react-router-dom';
 
-import { pageRoutes, signUpPasswordRules } from '@/shared/consts';
+import { URLs } from '@/__data__/urls';
+import { signUpPasswordRules } from '@/shared/consts';
 import { showErrorMessage } from '@/shared/lib/utils';
 import { PasswordStrength } from '@/shared/ui';
 
@@ -39,7 +40,7 @@ export function RegisterForm(): JSX.Element {
   };
 
   if (isSuccess) {
-    return <Navigate to={pageRoutes.MAIN} />;
+    return <Navigate to={URLs.baseUrl} />;
   }
 
   return (
@@ -128,7 +129,7 @@ export function RegisterForm(): JSX.Element {
           {t('form.button.register')}
         </Button>
         {t('form.haveAccount')}{' '}
-        <Link to={pageRoutes.LOGIN} style={{ color: '#1677ff' }}>
+        <Link to={URLs.ui.login} style={{ color: '#1677ff' }}>
           {t('form.button.login')}
         </Link>
       </Form>

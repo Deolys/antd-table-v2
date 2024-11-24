@@ -6,6 +6,19 @@ import { TextDecoder, TextEncoder } from 'util';
 Object.assign(global, { TextDecoder, TextEncoder });
 import { server } from '@/shared/test/msw/server';
 
+jest.mock('@brojs/cli', () => ({
+ getConfigValue: jest.fn(() => '/api'),
+ getNavigationValue: jest.fn((key) => {
+  switch (key) {
+   case 'antd-table-v2.main': return '/antd-table-v2';
+   case 'antd-table-v2.user.id': return '/user/:id';
+   case 'antd-table-v2.user.login': return '/auth/login';
+   case 'antd-table-v2.user.register': return '/auth/register';
+   default: return ''; 
+  }
+ }),
+}));
+
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' });
   Object.defineProperty(window, 'matchMedia', {

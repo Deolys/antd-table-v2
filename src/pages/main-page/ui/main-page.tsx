@@ -4,11 +4,11 @@ import React, { type JSX, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { URLs } from '@/__data__/urls';
 import menuIcon from '@/assets/icons/menu-icon.svg';
 import { LogoutButton } from '@/features/auth';
 import { DeleteUsersButton } from '@/features/delete-users-button';
 import { LanguageSelect } from '@/features/language-select';
-import { pageRoutes } from '@/shared/consts';
 import type { MenuItem } from '@/shared/types';
 import { UsersTable } from '@/widgets/users-table';
 
@@ -22,7 +22,7 @@ export function MainPage(): JSX.Element {
   const screen = useBreakpoint();
 
   const handleAddUser = (): void => {
-    navigate(pageRoutes.NEW_USER_FORM, { state: { searchParams: `${searchParams}` } });
+    navigate(URLs.ui.userId.getUrl('new-id'), { state: { searchParams: `${searchParams}` } });
   };
 
   const items: MenuItem[] = [

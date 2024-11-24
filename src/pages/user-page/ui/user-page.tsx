@@ -4,9 +4,9 @@ import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { URLs } from '@/__data__/urls';
 import { LogoutButton } from '@/features/auth';
 import { LanguageSelect } from '@/features/language-select';
-import { pageRoutes } from '@/shared/consts';
 import { UserForm } from '@/widgets/user-form';
 
 const { Header, Content } = Layout;
@@ -22,9 +22,7 @@ export function UserPage(): JSX.Element {
       <Header style={{ backgroundColor: '#52618d', paddingInline: screen.md ? 50 : 10 }}>
         <Flex justify="space-between" gap={14} align="center" style={{ height: '100%' }}>
           <Button
-            onClick={() =>
-              navigate(`${pageRoutes.MAIN}?${location.state?.searchParams || 'page=1'}`)
-            }
+            onClick={() => navigate(`${URLs.baseUrl}?${location.state?.searchParams || 'page=1'}`)}
           >
             {t('common.toMain')}
           </Button>
