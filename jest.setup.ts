@@ -7,13 +7,13 @@ Object.assign(global, { TextDecoder, TextEncoder });
 import { server } from '@/shared/test/msw/server';
 
 jest.mock('@brojs/cli', () => ({
- getConfigValue: jest.fn(() => '/api'),
+ getConfigValue: jest.fn(() => 'http://api'),
  getNavigationValue: jest.fn((key) => {
   switch (key) {
    case 'antd-table-v2.main': return '/antd-table-v2';
    case 'antd-table-v2.user.id': return '/user/:id';
-   case 'antd-table-v2.user.login': return '/auth/login';
-   case 'antd-table-v2.user.register': return '/auth/register';
+   case 'antd-table-v2.auth.login': return '/auth/login';
+   case 'antd-table-v2.auth.register': return '/auth/register';
    default: return ''; 
   }
  }),
