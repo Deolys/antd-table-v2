@@ -17,7 +17,6 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/users`,
         headers: {
           authorization: queryArg.authorization,
-          projectkey: queryArg.projectkey,
         },
         params: {
           email: queryArg.email,
@@ -45,7 +44,6 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/users/${queryArg.id}`,
         headers: {
           authorization: queryArg.authorization,
-          projectkey: queryArg.projectkey,
         },
       }),
     }),
@@ -64,7 +62,6 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/user-types`,
         headers: {
           authorization: queryArg.authorization,
-          projectkey: queryArg.projectkey,
         },
       }),
     }),
@@ -93,7 +90,6 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/auth/check`,
         headers: {
           authorization: queryArg.authorization,
-          projectkey: queryArg.projectkey,
         },
       }),
     }),
@@ -111,8 +107,6 @@ export type GetUsersApiResponse = /** status 200 List of users */ User[];
 export type GetUsersApiArg = {
   /** Authorization token */
   authorization: string;
-  /** Project key */
-  projectkey: string;
   email?: string;
   name?: string;
   typeId?: number;
@@ -131,8 +125,6 @@ export type GetUsersByIdApiResponse = /** status 200 User data */ User;
 export type GetUsersByIdApiArg = {
   /** Authorization token */
   authorization: string;
-  /** Project key */
-  projectkey: string;
   id: string;
 };
 export type PutUsersByIdApiResponse = unknown;
@@ -146,8 +138,6 @@ export type GetUserTypesApiResponse = /** status 200 List of user types */ UserT
 export type GetUserTypesApiArg = {
   /** Authorization token */
   authorization: string;
-  /** Project key */
-  projectkey: string;
 };
 export type PostAuthLoginApiResponse = /** status 200 Login successful */ User;
 export type PostAuthLoginApiArg = {
@@ -171,8 +161,6 @@ export type GetAuthCheckApiResponse = /** status 200 Authorized */ User;
 export type GetAuthCheckApiArg = {
   /** Authorization token */
   authorization: string;
-  /** Project key */
-  projectkey: string;
 };
 export type User = {
   _id?: string;

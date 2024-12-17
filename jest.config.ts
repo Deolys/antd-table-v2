@@ -5,6 +5,7 @@ export default {
     './src/**/*.ts?(x)',
     '!./src/app/index.tsx',
     '!./src/shared/types/*',
+    '!./src/shared/config/openapi/*',
     '!./src/widgets/users-table/model/*',
     '!./src/__data__/*',
   ],
