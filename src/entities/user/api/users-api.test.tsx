@@ -14,7 +14,7 @@ import {
   useUpdateUserMutation,
 } from '.';
 
-xdescribe('usersApi', () => {
+describe('usersApi', () => {
   it('fetches filtered users', async () => {
     const TestComponent = (): JSX.Element => {
       const { data } = useGetFilteredUsersQuery({
