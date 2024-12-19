@@ -2,7 +2,7 @@ import { Button, Flex, Layout, Menu, Spin } from 'antd';
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { URLs } from '@/__data__/urls';
 import menuIcon from '@/assets/icons/menu-icon.svg';
@@ -17,13 +17,8 @@ const FiltersForm = lazy(() => import('@/widgets/filters-form'));
 
 export function MainPage(): JSX.Element {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const screen = useBreakpoint();
-
-  const handleAddUser = (): void => {
-    navigate(URLs.ui.userId.getUrl('new-id'), { state: { searchParams: `${searchParams}` } });
-  };
 
   const items: MenuItem[] = [
     {
@@ -34,9 +29,15 @@ export function MainPage(): JSX.Element {
           type: 'item',
           key: 'addUser',
           label: (
-            <Button onClick={handleAddUser} block={!screen.md}>
-              {t('user.add')}
-            </Button>
+            <Link
+              to={{
+                pathname: URLs.ui.userId.getUrl('new-id'),
+              }}
+              state={{ searchParams: `${searchParams}` }}
+              style={{ display: 'contents' }}
+            >
+              <Button block={!screen.md}>{t('user.add')}</Button>
+            </Link>
           ),
         },
         {
@@ -62,9 +63,13 @@ export function MainPage(): JSX.Element {
         <Flex justify="end" gap={14} align="center" style={{ height: '100%' }}>
           {screen.md ? (
             <>
-              <Button onClick={handleAddUser} block={!screen.md}>
-                {t('user.add')}
-              </Button>
+              <Link
+                to={URLs.ui.userId.getUrl('new-id')}
+                state={{ searchParams: `${searchParams}` }}
+                style={{ display: 'contents' }}
+              >
+                <Button block={!screen.md}>{t('user.add')}</Button>
+              </Link>
               <DeleteUsersButton />
               <LanguageSelect />
               <LogoutButton />

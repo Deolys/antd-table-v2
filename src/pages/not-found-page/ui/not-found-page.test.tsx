@@ -7,15 +7,6 @@ import { pageRoutes } from '@/shared/consts';
 
 import { NotFoundPage } from './not-found-page';
 
-const mockNavigate = jest.fn();
-const mockLocation = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-  useLocation: () => mockLocation,
-}));
-
 describe('NotFoundPage', () => {
   it('should render the 404 page with correct translations', () => {
     render(
@@ -37,11 +28,11 @@ describe('NotFoundPage', () => {
       </MemoryRouter>,
     );
 
-    const toMainButton = screen.getByText(i18n.t('common.toMain'));
-    fireEvent.click(toMainButton);
+    const toMainLink = screen.getByRole('link', { name: i18n.t('common.toMain') });
+    fireEvent.click(toMainLink);
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith(`${pageRoutes.MAIN}?page=1`);
+      expect(toMainLink).toHaveAttribute('href', `${pageRoutes.MAIN}?page=1`);
     });
   });
 
@@ -52,13 +43,13 @@ describe('NotFoundPage', () => {
       </MemoryRouter>,
     );
 
-    const searchHereButton = screen.getByRole('button', {
+    const searchHereLink = screen.getByRole('link', {
       name: i18n.t('text.searchHere'),
     });
-    fireEvent.click(searchHereButton);
+    fireEvent.click(searchHereLink);
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith(`${pageRoutes.MAIN}?page=1`);
+      expect(searchHereLink).toHaveAttribute('href', `${pageRoutes.MAIN}?page=1`);
     });
   });
 });

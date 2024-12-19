@@ -2,7 +2,7 @@ import { Button, Flex, Layout } from 'antd';
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { URLs } from '@/__data__/urls';
 import { LogoutButton } from '@/features/auth';
@@ -13,7 +13,6 @@ const { Header, Content } = Layout;
 
 export function UserPage(): JSX.Element {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const location = useLocation();
   const screen = useBreakpoint();
 
@@ -21,11 +20,12 @@ export function UserPage(): JSX.Element {
     <Layout>
       <Header style={{ backgroundColor: '#52618d', paddingInline: screen.md ? 50 : 10 }}>
         <Flex justify="space-between" gap={14} align="center" style={{ height: '100%' }}>
-          <Button
-            onClick={() => navigate(`${URLs.baseUrl}?${location.state?.searchParams || 'page=1'}`)}
+          <Link
+            to={`${URLs.baseUrl}?${location.state?.searchParams || 'page=1'}`}
+            style={{ display: 'contents' }}
           >
-            {t('common.toMain')}
-          </Button>
+            <Button>{t('common.toMain')}</Button>
+          </Link>
           <Flex gap={14}>
             <LanguageSelect />
             <LogoutButton />
