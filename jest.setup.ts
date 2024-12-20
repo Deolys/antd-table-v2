@@ -10,11 +10,11 @@ jest.mock('@brojs/cli', () => ({
  getConfigValue: jest.fn(() => 'http://api'),
  getNavigationValue: jest.fn((key) => {
   switch (key) {
-   case 'antd-table-v2.main': return '/antd-table-v2';
-   case 'antd-table-v2.table': return '/table';
-   case 'antd-table-v2.user.id': return '/user/:id';
-   case 'antd-table-v2.auth.login': return '/auth/login';
-   case 'antd-table-v2.auth.register': return '/auth/register';
+   case 'antd.main': return '/antd';
+   case 'antd.table': return '/table';
+   case 'antd.user.id': return '/user/:id';
+   case 'antd.auth.login': return '/auth/login';
+   case 'antd.auth.register': return '/auth/register';
    default: return ''; 
   }
  }),

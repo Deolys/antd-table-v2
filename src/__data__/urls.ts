@@ -1,26 +1,23 @@
 import { getConfigValue, getNavigationValue } from '@brojs/cli';
 import { generatePath } from 'react-router-dom';
 
-const baseUrl = getNavigationValue('antd-table-v2.main');
+const baseUrl = getNavigationValue('antd.main');
 
 export const URLs = {
   baseUrl,
   ui: {
-    table:
-      getNavigationValue('antd-table-v2.table') &&
-      `${baseUrl}${getNavigationValue('antd-table-v2.table')}`,
+    table: getNavigationValue('antd.table') && `${baseUrl}${getNavigationValue('antd.table')}`,
     userId: {
-      url: `${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`,
-      on: Boolean(getNavigationValue('antd-table-v2.user.id')),
+      url: `${baseUrl}${getNavigationValue('antd.user.id')}`,
+      on: Boolean(getNavigationValue('antd.user.id')),
       getUrl: (id: string) =>
-        generatePath(`${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`, { id }),
+        generatePath(`${baseUrl}${getNavigationValue('antd.user.id')}`, { id }),
     },
     login:
-      getNavigationValue('antd-table-v2.auth.login') &&
-      `${baseUrl}${getNavigationValue('antd-table-v2.auth.login')}`,
+      getNavigationValue('antd.auth.login') && `${baseUrl}${getNavigationValue('antd.auth.login')}`,
     register:
-      getNavigationValue('antd-table-v2.auth.register') &&
-      `${baseUrl}${getNavigationValue('antd-table-v2.auth.register')}`,
+      getNavigationValue('antd.auth.register') &&
+      `${baseUrl}${getNavigationValue('antd.auth.register')}`,
   },
   api: {
     main: getConfigValue('antd-table-v2.api'),

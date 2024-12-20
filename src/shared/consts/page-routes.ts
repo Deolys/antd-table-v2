@@ -1,4 +1,4 @@
-const MAIN_ROUTE = '/antd-table-v2';
+const MAIN_ROUTE = '/antd';
 
 export const pageRoutes = {
   MAIN: MAIN_ROUTE,
