@@ -110,6 +110,12 @@
   "text": {
     "pageIsHiding": "The page you're looking for is hiding...",
     "searchHere": "Search here",
-    "canFindIt": "Can you find it?"
+    "canFindIt": "Can you find it?",
+    "slogan": "We are creating technologies that people will use"
+  },
+  "pages": {
+    "home": "Home",
+    "table": "Table",
+    "user": "User"
   }
 }

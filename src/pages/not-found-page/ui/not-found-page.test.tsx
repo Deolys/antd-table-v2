@@ -18,25 +18,25 @@ describe('NotFoundPage', () => {
     expect(screen.getByText(i18n.t('text.pageIsHiding'))).toBeInTheDocument();
     expect(screen.getByText(i18n.t('text.canFindIt'))).toBeInTheDocument();
     expect(screen.getByText(i18n.t('text.searchHere'))).toBeInTheDocument();
-    expect(screen.getByText(i18n.t('common.toMain'))).toBeInTheDocument();
+    expect(screen.getByText(i18n.t('pages.home'))).toBeInTheDocument();
   });
 
-  it('should navigate to the main page when clicking the "toMain" button', async () => {
+  it('should navigate to the home page when clicking the "Home" button', async () => {
     render(
       <MemoryRouter initialEntries={['/not-found']}>
         <NotFoundPage />
       </MemoryRouter>,
     );
 
-    const toMainLink = screen.getByRole('link', { name: i18n.t('common.toMain') });
-    fireEvent.click(toMainLink);
+    const toHomeLink = screen.getByRole('link', { name: i18n.t('pages.home') });
+    fireEvent.click(toHomeLink);
 
     await waitFor(() => {
-      expect(toMainLink).toHaveAttribute('href', `${pageRoutes.MAIN}?page=1`);
+      expect(toHomeLink).toHaveAttribute('href', pageRoutes.MAIN);
     });
   });
 
-  it('should navigate to the main page when clicking the "searchHere" button', async () => {
+  it('should navigate to the home page when clicking the "searchHere" button', async () => {
     render(
       <MemoryRouter initialEntries={['/not-found']}>
         <NotFoundPage />
@@ -49,7 +49,7 @@ describe('NotFoundPage', () => {
     fireEvent.click(searchHereLink);
 
     await waitFor(() => {
-      expect(searchHereLink).toHaveAttribute('href', `${pageRoutes.MAIN}?page=1`);
+      expect(searchHereLink).toHaveAttribute('href', pageRoutes.MAIN);
     });
   });
 });

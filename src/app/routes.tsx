@@ -5,6 +5,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { URLs } from '@/__data__/urls';
 import { selectAuthLoading, selectIsAuth } from '@/features/auth';
 import { useCheckAuthQuery } from '@/features/auth/api';
+import { HomePage } from '@/pages/home-page';
 import { LoginPage } from '@/pages/login-page';
 import { MainPage } from '@/pages/main-page';
 import { NotFoundPage } from '@/pages/not-found-page';
@@ -17,8 +18,9 @@ export const PageRoutes = (): JSX.Element => {
 
   return (
     <Routes>
+      <Route path={URLs.baseUrl} element={<HomePage />} />
       <Route
-        path={URLs.baseUrl}
+        path={URLs.ui.table}
         element={
           <PrivateRoute condition={false} redirect={URLs.ui.login}>
             <MainPage />

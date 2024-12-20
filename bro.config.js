@@ -16,7 +16,8 @@ module.exports = {
   /* use https://admin.bro-js.ru/ to create config, navigations and features */
   navigations: {
     'antd-table-v2.main': '/antd-table-v2',
-    'antd-table-v2.user.id': '/user/:id',
+    'antd-table-v2.table': '/table',
+    'antd-table-v2.user.id': '/table/user/:id',
     'antd-table-v2.auth.login': '/auth/login',
     'antd-table-v2.auth.register': '/auth/register',
   },

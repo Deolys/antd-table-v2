@@ -30,7 +30,7 @@ export default {
   roots: ['<rootDir>'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
-    '\\.(gif|ttf|eot|svg|png|jpg)$': '<rootDir>/src/shared/test/__mocks__/fileMock.js',
+    '\\.(gif|ttf|eot|svg|png|jpg|css)$': '<rootDir>/src/shared/test/__mocks__/fileMock.js',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
 };

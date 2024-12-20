@@ -6,6 +6,9 @@ const baseUrl = getNavigationValue('antd-table-v2.main');
 export const URLs = {
   baseUrl,
   ui: {
+    table:
+      getNavigationValue('antd-table-v2.table') &&
+      `${baseUrl}${getNavigationValue('antd-table-v2.table')}`,
     userId: {
       url: `${baseUrl}${getNavigationValue('antd-table-v2.user.id')}`,
       on: Boolean(getNavigationValue('antd-table-v2.user.id')),

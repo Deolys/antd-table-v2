@@ -1,4 +1,4 @@
-import { Button, Flex, Layout, Menu, Spin } from 'antd';
+import { Breadcrumb, Button, Flex, Layout, Menu, Spin } from 'antd';
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -30,9 +30,7 @@ export function MainPage(): JSX.Element {
           key: 'addUser',
           label: (
             <Link
-              to={{
-                pathname: URLs.ui.userId.getUrl('new-id'),
-              }}
+              to={URLs.ui.userId.getUrl('new-id')}
               state={{ searchParams: `${searchParams}` }}
               style={{ display: 'contents' }}
             >
@@ -60,31 +58,57 @@ export function MainPage(): JSX.Element {
           paddingInline: screen.md ? 50 : 10,
         }}
       >
-        <Flex justify="end" gap={14} align="center" style={{ height: '100%' }}>
-          {screen.md ? (
-            <>
-              <Link
-                to={URLs.ui.userId.getUrl('new-id')}
-                state={{ searchParams: `${searchParams}` }}
-                style={{ display: 'contents' }}
-              >
-                <Button block={!screen.md}>{t('user.add')}</Button>
-              </Link>
-              <DeleteUsersButton />
-              <LanguageSelect />
-              <LogoutButton />
-            </>
-          ) : (
-            <>
-              <LanguageSelect />
-              <LogoutButton />
-              <Menu mode="horizontal" items={items} style={{ backgroundColor: '#52618d' }} />
-            </>
-          )}
+        <Flex justify="space-between" align="center" style={{ height: '100%' }}>
+          <Link
+            to={URLs.baseUrl}
+            state={{ searchParams: `${searchParams}` }}
+            style={{ display: 'contents' }}
+          >
+            <Button>{t('pages.home')}</Button>
+          </Link>
+          <Flex gap={14}>
+            {screen.md ? (
+              <>
+                <Link
+                  to={URLs.ui.userId.getUrl('new-id')}
+                  state={{ searchParams: `${searchParams}` }}
+                  style={{ display: 'contents' }}
+                >
+                  <Button block={!screen.md}>{t('user.add')}</Button>
+                </Link>
+                <DeleteUsersButton />
+                <LanguageSelect />
+                <LogoutButton />
+              </>
+            ) : (
+              <>
+                <LanguageSelect />
+                <LogoutButton />
+                <Menu mode="horizontal" items={items} style={{ backgroundColor: '#52618d' }} />
+              </>
+            )}
+          </Flex>
         </Flex>
       </Header>
       <Layout>
-        <Content style={{ paddingInline: screen.md ? 50 : 10, paddingTop: 48 }}>
+        <Content
+          style={{ paddingInline: screen.md ? 50 : 10, paddingTop: 48, position: 'relative' }}
+        >
+          <Breadcrumb
+            items={[
+              {
+                title: (
+                  <Link to={URLs.baseUrl} state={{ searchParams: `${searchParams}` }}>
+                    {t('pages.home')}
+                  </Link>
+                ),
+              },
+              {
+                title: t('pages.table'),
+              },
+            ]}
+            style={{ position: 'absolute', top: 0 }}
+          />
           <UsersTable />
         </Content>
         <Sider
