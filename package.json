@@ -1,5 +1,5 @@
 {
-  "name": "antd",
+  "name": "antd-table-v2",
   "version": "1.0.1",
   "description": "",
   "main": "./src/app/index.tsx",
