@@ -34,7 +34,7 @@ export function UserForm(): JSX.Element {
       style={{
         padding: 20,
         width: screen.sm ? 500 : 300,
-        margin: '40px auto',
+        margin: '40px auto 0',
         borderRadius: 10,
         border: '1px solid #52618d',
       }}

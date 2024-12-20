@@ -1,8 +1,8 @@
-import { Button, Flex, Layout, Menu, Spin } from 'antd';
+import { Breadcrumb, Button, Flex, Layout, Menu, Spin } from 'antd';
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import React, { type JSX, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { URLs } from '@/__data__/urls';
 import menuIcon from '@/assets/icons/menu-icon.svg';
@@ -17,13 +17,8 @@ const FiltersForm = lazy(() => import('@/widgets/filters-form'));
 
 export function MainPage(): JSX.Element {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const screen = useBreakpoint();
-
-  const handleAddUser = (): void => {
-    navigate(URLs.ui.userId.getUrl('new-id'), { state: { searchParams: `${searchParams}` } });
-  };
 
   const items: MenuItem[] = [
     {
@@ -34,9 +29,13 @@ export function MainPage(): JSX.Element {
           type: 'item',
           key: 'addUser',
           label: (
-            <Button onClick={handleAddUser} block={!screen.md}>
-              {t('user.add')}
-            </Button>
+            <Link
+              to={URLs.ui.userId.getUrl('new-id')}
+              state={{ searchParams: `${searchParams}` }}
+              style={{ display: 'contents' }}
+            >
+              <Button block={!screen.md}>{t('user.add')}</Button>
+            </Link>
           ),
         },
         {
@@ -59,27 +58,57 @@ export function MainPage(): JSX.Element {
           paddingInline: screen.md ? 50 : 10,
         }}
       >
-        <Flex justify="end" gap={14} align="center" style={{ height: '100%' }}>
-          {screen.md ? (
-            <>
-              <Button onClick={handleAddUser} block={!screen.md}>
-                {t('user.add')}
-              </Button>
-              <DeleteUsersButton />
-              <LanguageSelect />
-              <LogoutButton />
-            </>
-          ) : (
-            <>
-              <LanguageSelect />
-              <LogoutButton />
-              <Menu mode="horizontal" items={items} style={{ backgroundColor: '#52618d' }} />
-            </>
-          )}
+        <Flex justify="space-between" align="center" style={{ height: '100%' }}>
+          <Link
+            to={URLs.baseUrl}
+            state={{ searchParams: `${searchParams}` }}
+            style={{ display: 'contents' }}
+          >
+            <Button>{t('pages.home')}</Button>
+          </Link>
+          <Flex gap={14}>
+            {screen.md ? (
+              <>
+                <Link
+                  to={URLs.ui.userId.getUrl('new-id')}
+                  state={{ searchParams: `${searchParams}` }}
+                  style={{ display: 'contents' }}
+                >
+                  <Button block={!screen.md}>{t('user.add')}</Button>
+                </Link>
+                <DeleteUsersButton />
+                <LanguageSelect />
+                <LogoutButton />
+              </>
+            ) : (
+              <>
+                <LanguageSelect />
+                <LogoutButton />
+                <Menu mode="horizontal" items={items} style={{ backgroundColor: '#52618d' }} />
+              </>
+            )}
+          </Flex>
         </Flex>
       </Header>
       <Layout>
-        <Content style={{ paddingInline: screen.md ? 50 : 10, paddingTop: 48 }}>
+        <Content
+          style={{ paddingInline: screen.md ? 50 : 10, paddingTop: 48, position: 'relative' }}
+        >
+          <Breadcrumb
+            items={[
+              {
+                title: (
+                  <Link to={URLs.baseUrl} state={{ searchParams: `${searchParams}` }}>
+                    {t('pages.home')}
+                  </Link>
+                ),
+              },
+              {
+                title: t('pages.table'),
+              },
+            ]}
+            style={{ position: 'absolute', top: 0 }}
+          />
           <UsersTable />
         </Content>
         <Sider

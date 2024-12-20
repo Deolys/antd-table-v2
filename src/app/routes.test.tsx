@@ -37,9 +37,9 @@ breakpoints.forEach((breakpoint) => {
       });
     });
 
-    it('renders the main page without crashing', async () => {
+    it('renders the table page without crashing', async () => {
       const { container } = renderWithProviders(
-        <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
+        <MemoryRouter initialEntries={[pageRoutes.TABLE]}>
           <PageRoutes />
         </MemoryRouter>,
         {
@@ -57,9 +57,21 @@ breakpoints.forEach((breakpoint) => {
       });
     });
 
-    it('renders the main page without crashing different screens', async () => {
+    it('renders the home page without crashing', async () => {
       const { container } = renderWithProviders(
         <MemoryRouter initialEntries={[pageRoutes.MAIN]}>
+          <PageRoutes />
+        </MemoryRouter>,
+      );
+
+      await waitFor(() => {
+        expect(container).toBeInTheDocument();
+      });
+    });
+
+    it('renders the main page without crashing different screens', async () => {
+      const { container } = renderWithProviders(
+        <MemoryRouter initialEntries={[pageRoutes.TABLE]}>
           <PageRoutes />
         </MemoryRouter>,
         {

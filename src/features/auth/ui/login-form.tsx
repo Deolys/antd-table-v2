@@ -32,7 +32,7 @@ export function LoginForm(): JSX.Element {
   };
 
   if (isSuccess) {
-    return <Navigate to={URLs.baseUrl} />;
+    return <Navigate to={URLs.ui.table} />;
   }
 
   return (
